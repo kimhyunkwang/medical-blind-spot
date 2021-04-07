@@ -2,7 +2,7 @@
 ## 디렉토리 구조
 ```
 data-project                # root
-├─ launcher
+├─ app
 |   ├─ static                       # css, js, image
 |   ├─ templates                    # html files
 |   ├─ views
