@@ -1,4 +1,5 @@
 from flask import Blueprint, request, render_template
+from app.models import Hospital
 
 bp = Blueprint('hospital', __name__, template_folder='templates', static_folder='static')
 
