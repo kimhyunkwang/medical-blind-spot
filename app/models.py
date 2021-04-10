@@ -8,5 +8,5 @@ class Hospital(db.Model):
     dutyEryn = db.Column(db.Integer, nullable=False)
     dutyAddr = db.Column(db.Text, nullable=False)
     postCdn = db.Column(db.Integer, nullable=True)
-    wgs84Lat = db.Column(db.Float(2, 10), nullable=True)
-    wgs84Lon = db.Column(db.Float(3, 10), nullable=True)
+    wgs84Lat = db.Column(db.String(20), nullable=True)
+    wgs84Lon = db.Column(db.String(20), nullable=True)

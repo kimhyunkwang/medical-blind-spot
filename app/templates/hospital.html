@@ -6,22 +6,52 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
     <title>의료 사각지대 해소 웹서비스</title>
     <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=cqqqjd9e72"></script>
+    <!-- <link rel="stylesheet" href="../static/css/hospital.css"> -->
 </head>
 <body>
-    <form action = "residence.html" method = "post">
+    <form action = "" method = "post">
         <h1>병원 찾기</h1>
-        <div>
-            보호자의 위치를 입력해주세요.<br>
-            <input type="text" name="protector"><br>
-            피보호자의 위치를 입력해주세요.<br>
-            <input type="text" name="protege"><br><br>
-        </div>
+
+        1️⃣ 지역 선택<br>
+        <select name="region1">
+            <option value="1">서울특별시</option>
+            <option value="2">부산광역시</option>
+            <option value="3">대구광역시</option>
+            <option value="4">인천광역시</option>
+            <option value="5">광주광역시</option>
+            <option value="6">대전광역시</option>
+            <option value="7">울산광역시</option>
+            <option value="8">세종특별자치시</option>
+            <option value="9">경기도</option>
+            <option value="10">강원도</option>
+            <option value="11">충청북도</option>
+            <option value="12">충청남도</option>
+            <option value="13">전라북도</option>
+            <option value="14">전라남도</option>
+            <option value="15">경상북도</option>
+            <option value="16">경상남도</option>
+            <option value="17">제주특별자치도</option>
+        </select><br><br>
+        
+        2️⃣ 병원 분류 선택<br>
+        <input type="checkbox" name="hosp_div" value="div1"> 한의원
+        <input type="checkbox" name="hosp_div" value="div2"> 한방병원
+        <input type="checkbox" name="hosp_div" value="div3"> 치과의원
+        <input type="checkbox" name="hosp_div" value="div4"> 치과병원
+        <input type="checkbox" name="hosp_div" value="div5"> 종합병원<br>
+        <input type="checkbox" name="hosp_div" value="div6"> 요양병원
+        <input type="checkbox" name="hosp_div" value="div7"> 병원
+        <input type="checkbox" name="hosp_div" value="div8"> 의원
+        <input type="checkbox" name="hosp_div" value="div9"> 보건소
+        <input type="checkbox" name="hosp_div" value="div10"> 기타(구급차)
+        <input type="checkbox" name="hosp_div" value="div11"> 기타<br><br>
+
+        <input type="submit" id="search" value="검색"><br><br>
+
     </form>
 
-    
     <div id="map" style="width:70%;height:400px;"></div>
     <script type="text/javascript" src="../static/js/map.js"></script>
-
 
 </body>
 </html>
