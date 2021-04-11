@@ -1,4 +1,3 @@
-import csv
 import pandas as pd
 
 from app import db, create_app

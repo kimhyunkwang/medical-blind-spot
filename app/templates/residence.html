@@ -5,23 +5,23 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
     <title>의료 사각지대 해소 웹서비스</title>
-    <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=g6u8g3vqn0"></script>
+    <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=cqqqjd9e72"></script>
+    <link rel="stylesheet" href="../static/css/second.css">
 </head>
 <body>
-    <form action = "residence.html" method = "post">
-        <h1>주거지 찾기</h1>
-        <div>
-            보호자의 위치를 입력해주세요.<br>
-            <input type="text" id="protector"><br>
-            고정적으로 방문할 의료・복지 시설이 있다면 입력해주세요.<br>
-            <input type="text" id="facility"><br><br>
-        </div>
+    <h1>주거지 찾기</h1>
+    <form action = "" method = "post">
+        <h3>보호자 위치</h3>
+        <input type="text" id="protector" placeholder="주소를 입력해주세요." required><br>
+        <h3>고정적으로 방문할 의료・복지 시설</h3>
+        <input type="text" id="facility" placeholder="시설 이름을 입력해주세요." required><br><br>
+        <input type="text" id="facility" placeholder="시설 이름을 입력해주세요."><br><br>
+
+        <input type="submit" id="search" value="검색"><br><br>
     </form>
 
-
-    <div id="map" style="width:70%;height:400px;"></div>
+    <div id="map" style="width:60%; height: 450px"></div>
     <script type="text/javascript" src="../static/js/map.js"></script>
-
 
 </body>
 </html>
