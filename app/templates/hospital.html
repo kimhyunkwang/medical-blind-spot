@@ -49,28 +49,33 @@
     </form>
 
     <span id="hospital"></span>
-    <script type="text/javascript">
-    var getLatLng = '{{result|default("")|tojson|safe}}';
-        var result = JSON.parse(getLatLng);
-        console.log(result);
-        for (var i=0; i < result.length; i++) {
-            var lat = parseFloat(result[i]["wgs84Lat"])
-            var lon = parseFloat(result[i]["wgs84Lon"])
-            console.log(lat);
-            console.log(lon);
-        }; 
-    </script>
-    
+       
     <div id="map" style="width:60%; height: 450px"></div>
+   
     <script type='text/javascript'>
+    
         var mapOptions = {
             center: new naver.maps.LatLng(37.3595704, 127.105399),
             zoom: 10
     
         };
     
-        var map = new naver.maps.Map('map', mapOptions);
+        let map = new naver.maps.Map('map', mapOptions);
         
+        let getLatLng = '{{result|default("")|tojson|safe}}';
+            let result = JSON.parse(getLatLng);
+            console.log(result);
+            for (var i=0; i < result.length; i++) {
+                let lat = parseFloat(result[i]["wgs84Lat"])
+                let lng = parseFloat(result[i]["wgs84Lon"])
+                var divName = result[i]["dutyDivNam"]
+                var emCdName = result[i]["dutyEmclsName"]
+                var hosName = result[i]["dutyName"]
+                var postCdn = parseInt(result[i]["postCdn"])
+               
+            }; 
+        
+
         const data = [
             {
                 title: "용산역",

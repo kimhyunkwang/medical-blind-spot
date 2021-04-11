@@ -36,3 +36,27 @@ form #protector, #facility {
 .loca {
     margin-left: 50px; 
 }
+
+.marker {
+    width: 15px;
+    height: 15px;
+    background: yellow;
+    border: 1px solid black;
+    border-radius: 50%;
+  }
+  
+  .infowindow_wrap {
+    background: white;
+    padding: 20px;
+    border: 1px solid rgba(0,0,0,0.2);
+  }
+  
+  .infowindow_title {
+    font-size: 15px;
+    font-weight: bolder;
+  }
+  
+  .infowindow_address{
+    font-size: 13px;
+    font-weight: normal;
+  }
