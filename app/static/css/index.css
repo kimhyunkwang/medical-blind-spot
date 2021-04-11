@@ -1,0 +1,28 @@
+a {
+    text-decoration: none;
+    color: #000;
+}
+h1{
+    margin: 40px 0 50px 50px;
+}
+/* h3 {
+    margin: 10px 0 50px 50px;
+} */
+button {
+    text-align: center;
+
+    width: 200px;
+    height: 80px;
+    margin-left: 50px;
+
+    font-size: 17px;
+    font-weight: bold;
+
+    border: 0;
+    border-radius: 5px;
+    background-color: rgb(164, 209, 242);
+}
+button.residence {
+    background-color: rgb(210, 248, 177);
+}
+
