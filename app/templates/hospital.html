@@ -48,7 +48,6 @@
         <input type="submit" id="search" value="검색"><br><br>
     </form>
 
-
     <span id="hospital"></span>
     <script>
         var result = '{{result|tojson|safe}}';
@@ -63,19 +62,9 @@
 
     </script>
 
-
-
     <div id="map" style="width:60%; height: 450px"></div>
     <script type="text/javascript" src="../static/js/map.js"></script>
 
-
-    <!-- {% if result %}
-    {% for hospital in result %}
-        <div class="loca">{{ hospital["wgs84Lat"] }} {{ hospital["wgs84Lon"] }}</div>
-    {% endfor %}
-    {% endif %} -->
-
-    
 
 </body>
 </html>
