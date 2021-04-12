@@ -8,13 +8,13 @@ app = create_app()
 
 with app.app_context():
     # 병원 데이터
-    data = pd.read_excel('data/hospi4.xlsx')
+    hosp_data = pd.read_excel('data/hospi4.xlsx')
 
     ## 필요한 열만 추출
-    df_7cols = data[["dutyName", "dutyDivNam", "dutyEmclsName", "dutyEryn", "dutyAddr", "wgs84Lon", "wgs84Lat"]]
+    hosp_df = hosp_data[["dutyName", "dutyDivNam", "dutyEmclsName", "dutyEryn", "dutyAddr", "wgs84Lon", "wgs84Lat"]]
 
     ## 우편번호 전처리
-    postCdn = data[["postCdn1", "postCdn2"]]
+    postCdn = hosp_data[["postCdn1", "postCdn2"]]
     postCdn = postCdn.astype("str")
 
     postCdnList1 = list(n_str[:-2] for n_str in postCdn["postCdn1"])
@@ -25,23 +25,23 @@ with app.app_context():
     postCdn["postCdn"] = postCdn["postCdn1"] + postCdn["postCdn2"]
     postCdn = postCdn.drop(["postCdn1", "postCdn2"], axis = 1)
 
-    ## df_7cols 데이터프레임과 우편번호 데이터프레임 병합
-    df_8cols = pd.concat([df_7cols, postCdn], axis = 1)
+    ## hosp_df 데이터프레임과 우편번호 데이터프레임 병합
+    hosp_df = pd.concat([hosp_df, postCdn], axis = 1)
 
     ## null 값 처리
-    df_8cols.loc[df_8cols.wgs84Lat.isna(), 'wgs84Lat'] = -1
-    df_8cols.loc[df_8cols.wgs84Lon.isna(), 'wgs84Lon'] = -1
-    df_8cols.loc[df_8cols.postCdn == 'nn', 'postCdn'] = -1
+    hosp_df.loc[hosp_df.wgs84Lat.isna(), 'wgs84Lat'] = -1
+    hosp_df.loc[hosp_df.wgs84Lon.isna(), 'wgs84Lon'] = -1
+    hosp_df.loc[hosp_df.postCdn == 'nn', 'postCdn'] = -1
 
-    db.session.bulk_insert_mappings(Hospital, df_8cols.to_dict(orient="records"))
+    db.session.bulk_insert_mappings(Hospital, hosp_df.to_dict(orient="records"))
 
 
     # 부동산 데이터
-    data2 = pd.read_excel('data/아파트매물(위경도포함).xlsx')
+    apart_data = pd.read_excel('data/아파트매물(위경도포함).xlsx')
 
     ## 필요한 열만 추출 & 컬럼명 변경
-    resid_df = data2[["검색지역", "단지명", "빌딩타입", "최소면적", "최대면적",
-                    "최소매매가", "최대매매가", "최소전세가", "최대전세가", "위도", "경도"]]
+    resid_df = apart_data[["검색지역", "단지명", "빌딩타입", "최소면적", "최대면적",
+                        "최소매매가", "최대매매가", "최소전세가", "최대전세가", "위도", "경도"]]
     resid_df = resid_df.rename(columns = {"검색지역":"residAddr", "단지명":"residName", "빌딩타입":"residType",
                                         "최소면적":"minArea", "최대면적":"maxArea", "최소매매가":"minSalePrice",
                                         "최대매매가":"maxSalePrice", "최소전세가":"minJeonsePrice",
