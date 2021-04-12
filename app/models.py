@@ -18,11 +18,9 @@ class Residence(db.Model):
     residType = db.Column(db.String(10), nullable=False)
     minArea = db.Column(db.Float, nullable=True)
     maxArea = db.Column(db.Float, nullable=True)
-    # 수정 필요
-    minSalePrice = db.Column(db.String(16), nullable=True)
-    maxSalePrice = db.Column(db.String(16), nullable=True)
-    minJeonsePrice = db.Column(db.String(16), nullable=True)
-    maxJeonsePrice = db.Column(db.String(16), nullable=True)
-    
+    minSalePrice = db.Column(db.Float, nullable=True)
+    maxSalePrice = db.Column(db.Float, nullable=True)
+    minJeonsePrice = db.Column(db.Float, nullable=True)
+    maxJeonsePrice = db.Column(db.Float, nullable=True)
     latitude = db.Column(db.String(20), nullable=True)
     longitude = db.Column(db.String(20), nullable=True)
