@@ -12,16 +12,39 @@
     <h1>주거지 찾기</h1>
     <form action = "" method = "post">
         <h3>보호자 위치</h3>
-        <input type="text" id="protector" placeholder="주소를 입력해주세요." required><br>
-        <h3>고정적으로 방문할 의료・복지 시설</h3>
-        <input type="text" id="facility" placeholder="시설 이름을 입력해주세요." required><br><br>
-        <input type="text" id="facility" placeholder="시설 이름을 입력해주세요."><br><br>
+        <input type="text" id="protector" placeholder="주소를 입력해주세요." required>
 
-        <input type="submit" id="search" value="검색"><br><br>
+        <h3>고정적으로 방문할 의료・복지 시설</h3>
+        <input type="text" id="facility" placeholder="시설 이름을 입력해주세요." required>
+
+        <h3>최대 가격</h3>
+        <input type="number" name="maxPrice" min="0" max="20000000000" required> 만 원
+
+        <h3>최소 면적</h3>
+        <input type="number" name="minArea" min="0" max="500" required> m<sup>2</sup><br><br>
+
+        <input type="submit" id="search" value="검색">
     </form>
+
 
     <div id="map" style="width:60%; height: 450px"></div>
     <script type="text/javascript" src="../static/js/map.js"></script>
+
+    <!-- <span id="hospital"></span>
+    <script>
+        var result = '{{result|default("")|tojson|safe}}';
+        var result = JSON.parse(result);
+        console.log(result);
+        for (var i=0; i<result.length; i++) {
+            var lat = parseFloat(result[i]["wgs84Lat"]);
+            var lon = parseFloat(result[i]["wgs84Lon"]);
+
+            var marker = new naver.maps.Marker({
+                position: new naver.maps.LatLng(lat, lon),
+                map: map
+            });
+        };
+    </script> -->
 
 </body>
 </html>
