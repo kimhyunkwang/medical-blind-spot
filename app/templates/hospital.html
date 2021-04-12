@@ -5,7 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
     <title>의료 사각지대 해소 웹서비스</title>
-    <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=cqqqjd9e72"></script>
+    <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=g6u8g3vqn0"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
     <link rel="stylesheet" href="../static/css/second.css">
 </head>
 <body>
@@ -48,103 +49,186 @@
         <input type="submit" id="search" value="검색"><br><br>
     </form>
 
+    <div id="map" style="width:60%; height: 80vh"></div>
+    
     <span id="hospital"></span>
-       
-    <div id="map" style="width:60%; height: 450px"></div>
-   
+    <script type="text/javascript" src = "../static/js/MarkerClustering.js"></script>
     <script type='text/javascript'>
     
         var mapOptions = {
             center: new naver.maps.LatLng(37.3595704, 127.105399),
-            zoom: 10
+            zoom: 6,
+            zoomControl: true,
+            zoomCOntrolOptions: {
+                position: naver.maps.Position.TOP_LEFT,
+                style: naver.maps.ZoomControlStyle.SMALL,
+            }
     
         };
     
         let map = new naver.maps.Map('map', mapOptions);
         
-        let getLatLng = '{{result|default("")|tojson|safe}}';
-            let result = JSON.parse(getLatLng);
-            console.log(result);
-            for (var i=0; i < result.length; i++) {
-                let lat = parseFloat(result[i]["wgs84Lat"])
-                let lng = parseFloat(result[i]["wgs84Lon"])
-                var divName = result[i]["dutyDivNam"]
-                var emCdName = result[i]["dutyEmclsName"]
-                var hosName = result[i]["dutyName"]
-                var postCdn = parseInt(result[i]["postCdn"])
-               
-            }; 
-        
-
-        const data = [
-            {
-                title: "용산역",
-                address: "용산",
-                lat: 37.53000095823676,
-                lng: 126.9647696445236,
-            },
-            {
-                title: "서울역",
-                address: "서울",
-                lat: 37.55676843496512,
-                lng: 126.9723863076583,
-            },
-        ];
-    
         let markerList = [];
         let infowindowList = [];
-    
-        const getClickHandler = (i) => () => {
-            const marker = markerList[i];
-            const infowindow = infowindowList[i];
-            if (infowindow.getMap()) {
-                infowindow.close();
-            }else{
-                infowindow.open(map, marker);
+
+        let getLatLng = '{{result|default("")|tojson|safe}}';
+            let result = JSON.parse(getLatLng);
+            for (let i=0; i < result.length; i++) {
+                let lat = parseFloat(result[i]["wgs84Lat"]);
+                let lng = parseFloat(result[i]["wgs84Lon"]);
+                let div_name = result[i]["dutyDivNam"];
+                let em_cd_name = result[i]["dutyEmclsName"];
+                let hosp_name = result[i]["dutyName"];
+                let post_cdn = parseInt(result[i]["postCdn"]);
+
+                let marker = new naver.maps.Marker({
+                    position: new naver.maps.LatLng(lat, lng),
+                    icon: {
+                     content: `<div class = "marker"></div>`,
+                     anchor: new naver.maps.Point(7.5, 7.5),
+                 },
+                    map: map});
+                               
+
+                let infowindow = new naver.maps.InfoWindow({
+                    content: `<div class = "infowindow_wrap">
+                    <div class = "infowindow_title">${hosp_name}</div>
+                    <div class = "infowindow_emg">${em_cd_name}</div>
+                    <div class = "infowindow_divide">${div_name}</div>
+                    </div>`,});
+
+                markerList.push(marker);
+                infowindowList.push(infowindow);
+
+                function getClickHandler(seq) {
+                    return function(e) {
+                        let marker = markerList[seq],
+                            infowindow = infowindowList[seq];
+
+                    if (infowindow.getMap()) {
+                        infowindow.close();
+                     } else {
+                        infowindow.open(map, marker);
+                    }
+                }
             }
-        };
-    
-        const getClickMap = (i) => () => {
-            const infowindow = infowindowList[i];
-            infowindow.close();
-        };
-    
-        for (let i in data) {
-            const target = data[i];
-            const latlng = new naver.maps.LatLng(target.lat, target.lng);
-    
-            let marker = new naver.maps.Marker({
-                map:map,
-                position: latlng,
-                icon: {
-                    content: `<div class = "marker"></div>`,
-                    anchor: new naver.maps.Point(7.5, 7.5),
-                },
-            });
-    
-            const content = `
-                <div class = "infowindow_wrap">
-                    <div class = "infowindow_title">${target.title}</div>
-                    <div class = "infowindow_address">${target.address}</div>
-                </div>
-            `;
-    
-            const infowindow = new naver.maps.InfoWindow({
-                content : content,
-                backgroundColor : "#00ff0000",
-                borderColor: "#00ff0000",
-                anchorSize: new naver.maps.Size(0, 0),
-            });
-    
-            markerList.push(marker);
-            infowindowList.push(infowindow);
-        };
-    
-        for (let i = 0, ii = markerList.length; i < ii; i++) {
-            naver.maps.Event.addListener(markerList[i],"click",getClickHandler(i));
-            naver.maps.Event.addListener(map,"click", getClickMap(i));
+
+                for (let j=0, jj=markerList.length; j<jj; j++) {
+                naver.maps.Event.addListener(markerList[j], 'click', getClickHandler(j))
+            };
         };
 
+        const cluster1 = {
+            content: `<div class="cluster1"></div>`,
+        };
+
+        const cluster2 = {
+            content: `<div class="cluster2"></div>`,
+        };
+
+        const cluster3 = {
+            content: `<div class="cluster3"></div>`,
+        };
+
+        const markerClustering = new MarkerClustering({
+            minClusterSize: 2,
+            maxZoom: 12,
+            map: map,
+            markers : markerList,
+            disableClickZoom: false,
+            gridSize: 120,
+            icons: [cluster1, cluster2, cluster3],
+            indexGenerator: [5, 50, 100],
+            stylingFunction: (clusterMarker, count) => {
+                $(clusterMarker.getElement()).find("div:first-child").text(count);
+            },
+        });
+        
+        const urlPrefix = "https://navermaps.github.io/maps.js/docs/data/region";
+        const urlSuffix = ".json";
+
+        let regionGeoJson = [];
+        let loadCount = 0;
+
+        const tooltip = $(
+            `<div style = "position:absolute;z-index:1000;padding:5px 10px;background:white;border:1px solid black;font-size:14px;display:none;pointer-events:none;">
+            </div>`);
+
+        tooltip.appendTo(map.getPanes().floatPane);
+        naver.maps.Event.once(map, "init_stylemap", ()=> {
+            for (let i=1; i<18; i++){
+                let keyword = i.toString();
+                if(keyword.length === 1) {
+                    keyword = "0" + keyword;
+                }
+                $.ajax({
+                    url : urlPrefix + keyword + urlSuffix,
+                }).done((geojson) => {
+                    regionGeoJson.push(geojson);
+                    loadCount++;
+                    if (loadCount === 17) {
+                        startDataLayer();
+                    }
+                }); 
+            }
+        });
+        
+        function startDataLayer(){
+            map.data.setStyle(feature => {
+                const styleOptions = {
+                    fillColor: "#8370F7",
+                    fillOpacity: 0.0001,
+                    strokeColor: "#83A2F7",
+                    strokeWeight: 2,
+                    strokeOpacity: 0.4,
+                };
+
+                if(feature.getProperty("focus")) {
+                    styleOptions.fillOpacity = 0.6;
+                    styleOptions.fillColor = "#AAE8ED";
+                    styleOptions.strokeColor = "#AAE8ED";
+                    styleOptions.strokeWeight = 4;
+                    styleOptions.strokeOpacity = 1;
+                }
+
+                return styleOptions;
+            });
+            
+            regionGeoJson.forEach((geojson)=> {
+                map.data.addGeoJson(geojson);
+            });
+
+            map.data.addListener("click", (e) => {
+                let feature = e.feature;
+                if(feature.getProperty('focus') !== true) {
+                    feature.setProperty("focus", true);
+                } else {
+                    feature.setProperty("focus", false);
+                }
+            });
+
+            map.data.addListener("mouseover", (e) => {
+                let feature = e.feature;
+                let regionName = feature.getProperty("area1");
+                tooltip.css({
+                    display: "block",
+                    left: e.offset.x,
+                    top: e.offset.y,
+                })
+                .text(regionName);
+            map.data.overrideStyle(feature, {
+                fillOpacity: 0.6,
+                strokeWeight: 4,
+                strokeOpacity: 1,
+                });
+            });
+
+            map.data.addListener("mouseout", (e) => {
+                tooltip.hide().empty();
+                map.data.revertStyle();
+            })
+        };    
+        
     </script>
     
 </body>
