@@ -1,6 +1,5 @@
-from flask import Blueprint, request, render_template, redirect, url_for
+from flask import Blueprint, request, render_template
 from app.models import Hospital
-from flask import jsonify
 import pandas as pd
 import json
 

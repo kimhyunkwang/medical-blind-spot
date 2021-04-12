@@ -1,18 +1,19 @@
 import pandas as pd
 
 from app import db, create_app
-from app.models import Hospital
+from app.models import Hospital, Residence
 
 session = db.session
 app = create_app()
 
 with app.app_context():
+    # 병원 데이터
     data = pd.read_excel('data/hospi4.xlsx')
 
-    # 필요한 열만 추출
+    ## 필요한 열만 추출
     df_7cols = data[["dutyName", "dutyDivNam", "dutyEmclsName", "dutyEryn", "dutyAddr", "wgs84Lon", "wgs84Lat"]]
 
-    # 우편번호 전처리
+    ## 우편번호 전처리
     postCdn = data[["postCdn1", "postCdn2"]]
     postCdn = postCdn.astype("str")
 
@@ -24,14 +25,38 @@ with app.app_context():
     postCdn["postCdn"] = postCdn["postCdn1"] + postCdn["postCdn2"]
     postCdn = postCdn.drop(["postCdn1", "postCdn2"], axis = 1)
 
-    # df_7cols 데이터프레임과 우편번호 데이터프레임 병합
+    ## df_7cols 데이터프레임과 우편번호 데이터프레임 병합
     df_8cols = pd.concat([df_7cols, postCdn], axis = 1)
 
-    # null 값 처리
+    ## null 값 처리
     df_8cols.loc[df_8cols.wgs84Lat.isna(), 'wgs84Lat'] = -1
     df_8cols.loc[df_8cols.wgs84Lon.isna(), 'wgs84Lon'] = -1
     df_8cols.loc[df_8cols.postCdn == 'nn', 'postCdn'] = -1
 
     db.session.bulk_insert_mappings(Hospital, df_8cols.to_dict(orient="records"))
+
+
+    # 부동산 데이터
+    data2 = pd.read_excel('data/아파트매물(위경도포함).xlsx')
+
+    ## 필요한 열만 추출 & 컬럼명 변경
+    resid_df = data2[["검색지역", "단지명", "빌딩타입", "최소면적", "최대면적",
+                    "최소매매가", "최대매매가", "최소전세가", "최대전세가", "위도", "경도"]]
+    resid_df = resid_df.rename(columns = {"검색지역":"residAddr", "단지명":"residName", "빌딩타입":"residType",
+                                        "최소면적":"minArea", "최대면적":"maxArea", "최소매매가":"minSalePrice",
+                                        "최대매매가":"maxSalePrice", "최소전세가":"minJeonsePrice",
+                                        "최대전세가":"maxJeonsePrice", "위도":"latitude", "경도":"longitude"})
+
+    ## null 값 처리
+    resid_df.loc[resid_df.minArea.isna(), 'minArea'] = -1
+    resid_df.loc[resid_df.maxArea.isna(), 'maxArea'] = -1
+    resid_df.loc[resid_df.minSalePrice.isna(), 'minSalePrice'] = -1
+    resid_df.loc[resid_df.maxSalePrice.isna(), 'maxSalePrice'] = -1
+    resid_df.loc[resid_df.minJeonsePrice.isna(), 'minJeonsePrice'] = -1
+    resid_df.loc[resid_df.maxJeonsePrice.isna(), 'maxJeonsePrice'] = -1
+    resid_df.loc[resid_df.latitude.isna(), 'latitude'] = -1
+    resid_df.loc[resid_df.longitude.isna(), 'longitude'] = -1
+
+    db.session.bulk_insert_mappings(Residence, resid_df.to_dict(orient="records"))
 
     db.session.commit()
