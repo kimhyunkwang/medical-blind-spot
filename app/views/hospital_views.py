@@ -35,7 +35,7 @@ def hospital():
 
         result_df = pd.read_sql(hospital_list.statement, hospital_list.session.bind)
         result = json.loads(result_df.to_json(orient='records'))
-        print(result)
+
         return render_template('hospital.html', result = result)
 
     return render_template('hospital.html')

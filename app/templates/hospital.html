@@ -48,21 +48,25 @@
         <input type="submit" id="search" value="검색"><br><br>
     </form>
 
+    <div id="map" style="width:60%; height: 450px"></div>
+    <script type="text/javascript" src="../static/js/map.js"></script>
+
     <span id="hospital"></span>
     <script>
-        var result = '{{result|tojson|safe}}';
+        var result = '{{result|default("")|tojson|safe}}';
         var result = JSON.parse(result);
         console.log(result);
         for (var i=0; i<result.length; i++) {
             var lat = parseFloat(result[i]["wgs84Lat"]);
             var lon = parseFloat(result[i]["wgs84Lon"]);
-            console.log(lat);
-            console.log(lon);
+
+            var marker = new naver.maps.Marker({
+                position: new naver.maps.LatLng(lat, lon),
+                map: map
+            });
         };
     </script>
 
-    <div id="map" style="width:60%; height: 450px"></div>
-    <script type="text/javascript" src="../static/js/map.js"></script>
 
 </body>
 </html>
