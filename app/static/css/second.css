@@ -40,7 +40,7 @@ form #protector, #facility {
 .marker {
     width: 15px;
     height: 15px;
-    background: greenyellow;
+    background: #8A9FF5;
     border: 1px solid black;
     border-radius: 50%;
   }
