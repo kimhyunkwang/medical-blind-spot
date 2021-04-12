@@ -68,37 +68,37 @@ form #protector, #facility {
   }
 
   .cluster1 {
-      width: 25px;
-      height: 25px;
-      line-height: 26px;
-      font-size: 10px;
+      width: 30px;
+      height: 30px;
+      line-height: 31px;
+      font-size: 12px;
       border-radius: 50%;
       color: white;
       text-align: center;
       font-weight: bold;
-      background: rgba(255, 149, 79, 0.7);
+      background:#F56F90;
   }
 
   .cluster2 {
-    width: 30px;
-    height: 30px;
-    line-height: 31px;
-    font-size: 10px;
-    border-radius: 50%;
-    color: white;
-    text-align: center;
-    font-weight: bold;
-    background: rgba(255, 149, 79, 0.7);
-}
-
-.cluster3 {
     width: 35px;
     height: 35px;
     line-height: 36px;
-    font-size: 10px;
+    font-size: 12px;
     border-radius: 50%;
     color: white;
     text-align: center;
     font-weight: bold;
-    background: rgba(255, 149, 79, 0.7);
+    background: #F33F6C;
+}
+
+.cluster3 {
+    width: 40px;
+    height: 40px;
+    line-height: 41px;
+    font-size: 12px;
+    border-radius: 50%;
+    color: white;
+    text-align: center;
+    font-weight: bold;
+    background: #E52554;
 }
