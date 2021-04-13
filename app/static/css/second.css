@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 h1 {
     margin:40px 0 20px 50px;
 }
@@ -36,3 +37,147 @@ form #protector, #facility {
 .loca {
     margin-left: 50px; 
 }
+=======
+* {
+    margin: 0;
+    padding: 20;
+  }
+  
+  body {
+    background: #fff;
+  }
+  
+  .nav_bar {
+    background: rgb(56, 59, 56);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 60px;
+  }
+  
+  .menu {
+    font-size:20px;
+    color: white;
+    text-decoration: none;
+    position: relative;
+    padding: 6px 12px;
+  
+  }
+  
+  
+  .menu::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 4px;
+    background: #f1c40f;
+    transition: all .5s ease-out;
+  }
+  
+  .menu:hover::after {
+    width: 100%;
+  }
+  
+  
+  *[data-animation="ripple"] {
+    height: 100%;
+    width: 100%;
+    position: relative;
+    display: block;
+    outline: none;
+    padding: 10px;
+    color: white;
+    font-size: 15px;
+    text-transform: uppercase;
+    background: linear-gradient(135deg, #e7df70 0%,#e7b770 100%);
+    text-align: center;
+    line-height: 14px;
+    border-radius: 5px; }
+  
+  *[data-animation="ripple"]:hover {
+  height: 100%;
+  width: 100%;
+  position: relative;
+  display: block;
+  outline: none;
+  padding: 15px;
+  color: #fff;
+  font-size: 20px;
+  text-transform: uppercase;
+  background: linear-gradient(135deg, #e7db70 0%,#9de21c 100%);
+  text-align: center;
+  line-height: 14px;
+  border-radius: 5px;
+  }
+  
+  
+  .marker {
+      width: 15px;
+      height: 15px;
+      background: #8A9FF5;
+      border: 1px solid black;
+      border-radius: 50%;
+    }
+    
+    .infowindow_wrap {
+      background: white;
+      padding: 20px;
+      border: 1px solid rgba(0,0,0,0.2);
+    }
+    
+    .infowindow_title {
+      font-size: 15px;
+      font-weight: bolder;
+    }
+    
+    .infowindow_emg{
+      font-size: 13px;
+      font-weight: normal;
+    }
+  
+    .infowindow_divide{
+      font-size: 13px;
+      font-weight: bold;
+      color: blue;
+    }
+  
+    .cluster1 {
+        width: 30px;
+        height: 30px;
+        line-height: 31px;
+        font-size: 12px;
+        border-radius: 50%;
+        color: white;
+        text-align: center;
+        font-weight: bold;
+        background:#F56F90;
+    }
+  
+    .cluster2 {
+      width: 35px;
+      height: 35px;
+      line-height: 36px;
+      font-size: 12px;
+      border-radius: 50%;
+      color: white;
+      text-align: center;
+      font-weight: bold;
+      background: #F33F6C;
+  }
+  
+  .cluster3 {
+      width: 40px;
+      height: 40px;
+      line-height: 41px;
+      font-size: 12px;
+      border-radius: 50%;
+      color: white;
+      text-align: center;
+      font-weight: bold;
+      background: #E52554;
+  }
+  
+>>>>>>> c3a06b356d7009f2db7578b65abd7b7af4894ae3
