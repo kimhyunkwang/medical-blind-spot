@@ -18,30 +18,28 @@
           </div>
         </nav>
     <header>
-<div>
-    <div>
+    <main>
         <h1>보호자의 위치를 입력해주세요.</h1>
-    </div>
-</div>
-<div class="map_wrap">
-    <div id="map" style="width:100%;height:100%"></div>
-
-    <div id="menu_wrap" class="bg_white">
-        <div class="option">
-            <div>
-                <form onsubmit="searchPlaces(); return false;">
-                    키워드 : <input type="text" value="현대아파트" id="keyword" size="15"> 
-                    <button type="submit">검색하기</button> 
-                </form>
+        <div class="map_wrap">
+            <div id="map" style="width:100%;height:100%"></div>
+            <div id="menu_wrap" class="bg_white">
+                <div class="option">
+                    <div>
+                        <form onsubmit="searchPlaces(); return false;">
+                            키워드 : <input type="text" value="현대아파트" id="keyword" size="15"> 
+                            <button type="submit">검색하기</button> 
+                        </form>
+                    </div>
+                </div>
+                <hr>
+                <ul id="placesList"></ul>
+                <div id="pagination"></div>
             </div>
         </div>
-        <hr>
-        <ul id="placesList"></ul>
-        <div id="pagination"></div>
-    </div>
-</div>
-</body>
-
+    </main>
+        
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=0c75c4a5c68807afeb2551df3e2d7902&libraries=services"></script>
 <script type="text/javascript" src="../static/js/residence.js"></script>
+</body>
+
 </html>
