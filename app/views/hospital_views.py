@@ -1,6 +1,5 @@
-from flask import Blueprint, request, render_template, redirect, url_for
+from flask import Blueprint, request, render_template
 from app.models import Hospital
-from flask import jsonify
 import pandas as pd
 import json
 
@@ -37,5 +36,5 @@ def hospital():
         result_df = pd.read_sql(hospital_list.statement, hospital_list.session.bind)
         result = json.loads(result_df.to_json(orient='records'))
         return render_template('hospital.html', result = result)
-        
+
     return render_template('hospital.html')

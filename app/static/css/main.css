@@ -108,4 +108,8 @@ border-radius: 5px;
  #placesList .item .marker_15 {background-position: 0 -654px;}
  #pagination {margin:10px auto;text-align: center;}
  #pagination a {display:inline-block;margin-right:10px;}
+<<<<<<< HEAD
  #pagination .on {font-weight: bold; cursor: default;color:#777;}
+=======
+ #pagination .on {font-weight: bold; cursor: default;color:#777;}
+>>>>>>> origin/sprint2

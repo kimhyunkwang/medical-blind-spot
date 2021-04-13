@@ -21,5 +21,4 @@ def create_app():
     app.register_blueprint(residence_views.bp)
     app.register_blueprint(hospital_views.bp)
 
-
     return app
