@@ -5,12 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
     <title>의료 사각지대 해소 웹서비스</title>
-    <!-- <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=cqqqjd9e72"></script>
-    <link rel="stylesheet" href="../static/css/second.css">
-</head>
-<body>
-    <h1>병원 찾기</h1> -->
-    <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=vf26z2umlb"></script>
+    <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=g6u8g3vqn0"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
     <link rel="stylesheet" href="../static/css/second.css">
 </head>
@@ -18,7 +13,7 @@
     
     <header>
         <nav class = "nav_bar">
-        <a href=""><img src="../static/image/logo.png" alt="logo" width=150px; height=80%;></a>
+        <a href="/"><img src="../static/image/logo.png" alt="logo" width=150px; height=80%;></a>
         <a class="menu" href="">HOME</a>
         <a class="menu" href="">ABOUT</a>
         <a class="menu" href="/hospital">MAP</a>
@@ -64,39 +59,16 @@
         <input type="checkbox" name="hosp_div" value="div10"> 기타(구급차)
         <input type="checkbox" name="hosp_div" value="div11"> 기타<br><br>
 
-        <!-- <input type="submit" id="search" value="검색">
+        <input type="submit" id="search" value="검색">
     </form>
 
-    <div id="map" style="width:60%; height: 450px"></div>
-    <script type="text/javascript" src="../static/js/map.js"></script>
-
-    <span id="hospital"></span>
-    <script>
-        var result = '{{result|default("")|tojson|safe}}';
-        var result = JSON.parse(result);
-        console.log(result);
-        for (var i=0; i<result.length; i++) {
-            var lat = parseFloat(result[i]["wgs84Lat"]);
-            var lon = parseFloat(result[i]["wgs84Lon"]);
-
-            var marker = new naver.maps.Marker({
-                position: new naver.maps.LatLng(lat, lon),
-                map: map
-            });
-        };
-    </script> -->
-
-
-        <input type="submit" id="search" value="검색"><br><br>
-    </form>
-
-    <div id="map" style="width:60%; height: 80vh"></div>
+    <div id="map" style="width:60%; height: 80vh;"></div>
     
     <span id="hospital"></span>
     <script type="text/javascript" src = "../static/js/MarkerClustering.js"></script>
     <script type='text/javascript'>
     
-        var mapOptions = {
+        let mapOptions = {
             center: new naver.maps.LatLng(37.3595704, 127.105399),
             zoom: 6,
             zoomControl: true,
