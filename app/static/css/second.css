@@ -1,3 +1,43 @@
+<<<<<<< HEAD
+h1 {
+    margin:40px 0 20px 50px;
+}
+h3 {
+    font-size: 17px;
+}
+form {
+    float: left;
+    width : 30%;
+    margin-left: 50px;
+}
+#map {
+    float: right;
+    width: 60%;
+    margin-right: 50px;
+}
+form #search {
+    text-align: center;
+
+    width: 200px;
+    height: 40px;
+    margin-top: 20px;
+
+    font-size: 17px;
+    font-weight: bold;
+
+    border: 0;
+    border-radius: 5px;
+    background-color: rgb(164, 209, 242);
+}
+form #protector, #facility {
+    width: 90%;
+    height: 20px
+}
+/* 임시 */
+.loca {
+    margin-left: 50px; 
+}
+=======
 * {
     margin: 0;
     padding: 20;
@@ -140,3 +180,4 @@
       background: #E52554;
   }
   
+>>>>>>> c3a06b356d7009f2db7578b65abd7b7af4894ae3
