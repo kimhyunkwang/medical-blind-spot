@@ -16,14 +16,14 @@ services:
   flask:
     build: .
     ports:
-      - "80:80"
+      - "5000:5000"
     links:
       - db:db
-    command: gunicorn --bind 0.0.0.0:80 wsgi:app
+    command: gunicorn --bind 0.0.0.0:5000 wsgi:app
 
   nginx:
     build: ./nginx
     ports:
-      - "8080:8080"
+      - "80:80"
     depends_on:
       - flask
