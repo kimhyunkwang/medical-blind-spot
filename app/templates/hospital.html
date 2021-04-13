@@ -5,14 +5,27 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
     <title>의료 사각지대 해소 웹서비스</title>
-    <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=vf26z2umlb"></script>
-    <!-- <link rel="stylesheet" href="../static/css/hospital.css"> -->
+    <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=g6u8g3vqn0"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="../static/css/second.css">
 </head>
 <body>
-    <form action = "" method = "post">
-        <h1>병원 찾기</h1>
+    
+    <header>
+        <nav class = "nav_bar">
+        <a href="/"><img src="../static/image/logo.png" alt="logo" width=150px; height=80%;></a>
+        <a class="menu" href="">HOME</a>
+        <a class="menu" href="">ABOUT</a>
+        <a class="menu" href="/hospital">MAP</a>
 
-        1️⃣ 지역 선택<br>
+        <a class="menu" href="">MY PAGE</a>
+        <div class="container">
+            <a data-animation="ripple"><span style="font-weight: bold;">LOGIN</span></a>
+          </div>
+        </nav>
+    <header>
+    <form action = "" method = "post">
+        <h3>지역 선택</h3>
         <select name="region1">
             <option value="1">서울특별시</option>
             <option value="2">부산광역시</option>
@@ -33,25 +46,203 @@
             <option value="17">제주특별자치도</option>
         </select><br><br>
         
-        2️⃣ 병원 분류 선택<br>
+        <h3>병원 분류 선택</h3>
         <input type="checkbox" name="hosp_div" value="div1"> 한의원
         <input type="checkbox" name="hosp_div" value="div2"> 한방병원
         <input type="checkbox" name="hosp_div" value="div3"> 치과의원
-        <input type="checkbox" name="hosp_div" value="div4"> 치과병원
-        <input type="checkbox" name="hosp_div" value="div5"> 종합병원<br>
+        <input type="checkbox" name="hosp_div" value="div4"> 치과병원<br>
+        <input type="checkbox" name="hosp_div" value="div5"> 종합병원
         <input type="checkbox" name="hosp_div" value="div6"> 요양병원
         <input type="checkbox" name="hosp_div" value="div7"> 병원
-        <input type="checkbox" name="hosp_div" value="div8"> 의원
+        <input type="checkbox" name="hosp_div" value="div8"> 의원<br>
         <input type="checkbox" name="hosp_div" value="div9"> 보건소
         <input type="checkbox" name="hosp_div" value="div10"> 기타(구급차)
         <input type="checkbox" name="hosp_div" value="div11"> 기타<br><br>
 
-        <input type="submit" id="search" value="검색"><br><br>
-
+        <input type="submit" id="search" value="검색">
     </form>
 
-    <div id="map" style="width:70%;height:400px;"></div>
-    <script type="text/javascript" src="../static/js/map.js"></script>
+    <div id="map" style="width:60%; height: 80vh;"></div>
+    
+    <span id="hospital"></span>
+    <script type="text/javascript" src = "../static/js/MarkerClustering.js"></script>
+    <script type='text/javascript'>
+    
+        let mapOptions = {
+            center: new naver.maps.LatLng(37.3595704, 127.105399),
+            zoom: 6,
+            zoomControl: true,
+            zoomCOntrolOptions: {
+                position: naver.maps.Position.TOP_LEFT,
+                style: naver.maps.ZoomControlStyle.SMALL,
+            }
+    
+        };
+    
+        let map = new naver.maps.Map('map', mapOptions);
+        
+        let markerList = [];
+        let infowindowList = [];
 
+        let getLatLng = '{{result|default("")|tojson|safe}}';
+            let result = JSON.parse(getLatLng);
+            for (let i=0; i < result.length; i++) {
+                let lat = parseFloat(result[i]["wgs84Lat"]);
+                let lng = parseFloat(result[i]["wgs84Lon"]);
+                let div_name = result[i]["dutyDivNam"];
+                let em_cd_name = result[i]["dutyEmclsName"];
+                let hosp_name = result[i]["dutyName"];
+                let post_cdn = parseInt(result[i]["postCdn"]);
+
+                let marker = new naver.maps.Marker({
+                    position: new naver.maps.LatLng(lat, lng),
+                    icon: {
+                     content: `<div class = "marker"></div>`,
+                     anchor: new naver.maps.Point(15, 15),
+                 },
+                    map: map});
+                               
+
+                let infowindow = new naver.maps.InfoWindow({
+                    content: `<div class = "infowindow_wrap">
+                    <div class = "infowindow_title">${hosp_name}</div>
+                    <div class = "infowindow_emg">${em_cd_name}</div>
+                    <div class = "infowindow_divide">${div_name}</div>
+                    </div>`,});
+
+                markerList.push(marker);
+                infowindowList.push(infowindow);
+
+                function getClickHandler(seq) {
+                    return function(e) {
+                        let marker = markerList[seq],
+                            infowindow = infowindowList[seq];
+
+                    if (infowindow.getMap()) {
+                        infowindow.close();
+                     } else {
+                        infowindow.open(map, marker);
+                    }
+                }
+            }
+
+                for (let j=0, jj=markerList.length; j<jj; j++) {
+                naver.maps.Event.addListener(markerList[j], 'click', getClickHandler(j))
+            };
+        };
+
+        const cluster1 = {
+            content: `<div class="cluster1"></div>`,
+        };
+
+        const cluster2 = {
+            content: `<div class="cluster2"></div>`,
+        };
+
+        const cluster3 = {
+            content: `<div class="cluster3"></div>`,
+        };
+
+        const markerClustering = new MarkerClustering({
+            minClusterSize: 2,
+            maxZoom: 12,
+            map: map,
+            markers : markerList,
+            disableClickZoom: false,
+            gridSize: 120,
+            icons: [cluster1, cluster2, cluster3],
+            indexGenerator: [5, 50, 100],
+            stylingFunction: (clusterMarker, count) => {
+                $(clusterMarker.getElement()).find("div:first-child").text(count);
+            },
+        });
+        
+        const urlPrefix = "https://navermaps.github.io/maps.js/docs/data/region";
+        const urlSuffix = ".json";
+
+        let regionGeoJson = [];
+        let loadCount = 0;
+
+        const tooltip = $(
+            `<div style = "position:absolute;z-index:1000;padding:5px 10px;background:white;border:1px solid black;font-size:14px;display:none;pointer-events:none;">
+            </div>`);
+
+        tooltip.appendTo(map.getPanes().floatPane);
+        naver.maps.Event.once(map, "init_stylemap", ()=> {
+            for (let i=1; i<18; i++){
+                let keyword = i.toString();
+                if(keyword.length === 1) {
+                    keyword = "0" + keyword;
+                }
+                $.ajax({
+                    url : urlPrefix + keyword + urlSuffix,
+                }).done((geojson) => {
+                    regionGeoJson.push(geojson);
+                    loadCount++;
+                    if (loadCount === 17) {
+                        startDataLayer();
+                    }
+                }); 
+            }
+        });
+        
+        function startDataLayer(){
+            map.data.setStyle(feature => {
+                const styleOptions = {
+                    fillColor: "#5F8AA8",
+                    fillOpacity: 0.0001,
+                    strokeColor: "#5F8AA8",
+                    strokeWeight: 2,
+                    strokeOpacity: 0.4,
+                };
+
+                if(feature.getProperty("focus")) {
+                    styleOptions.fillOpacity = 0.6;
+                    styleOptions.fillColor = "#FFD28F";
+                    styleOptions.strokeColor = "#FFD28F";
+                    styleOptions.strokeWeight = 4;
+                    styleOptions.strokeOpacity = 1;
+                }
+
+                return styleOptions;
+            });
+            
+            regionGeoJson.forEach((geojson)=> {
+                map.data.addGeoJson(geojson);
+            });
+
+            map.data.addListener("click", (e) => {
+                let feature = e.feature;
+                if(feature.getProperty('focus') !== true) {
+                    feature.setProperty("focus", true);
+                } else {
+                    feature.setProperty("focus", false);
+                }
+            });
+
+            map.data.addListener("mouseover", (e) => {
+                let feature = e.feature;
+                let regionName = feature.getProperty("area1");
+                tooltip.css({
+                    display: "block",
+                    left: e.offset.x,
+                    top: e.offset.y,
+                })
+                .text(regionName);
+            map.data.overrideStyle(feature, {
+                fillOpacity: 0.6,
+                strokeWeight: 4,
+                strokeOpacity: 1,
+                });
+            });
+
+            map.data.addListener("mouseout", (e) => {
+                tooltip.hide().empty();
+                map.data.revertStyle();
+            })
+        };    
+        
+    </script>
+    
 </body>
 </html>
