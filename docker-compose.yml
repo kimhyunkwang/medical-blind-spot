@@ -19,3 +19,11 @@ services:
       - "80:80"
     links:
       - db:db
+    command: gunicorn --bind 0.0.0.0:80 wsgi:app
+
+  nginx:
+    build: ./nginx
+    ports:
+      - "8080:8080"
+    depends_on:
+      - flask

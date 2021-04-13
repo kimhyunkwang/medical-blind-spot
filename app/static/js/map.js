@@ -94,13 +94,13 @@ function getCheckboxData(){
         timeout : 3000,
         cache : true,
         success:function(data){
-            console.log(result);
+            console.log(data);
             // alert("완료!");
-            window.opener.location.reload();
-            self.close();
+            // window.opener.location.reload();
+            // self.close();
         },
         error:function(jqXHR, textStatus, errorThrown){
-            console.log(result);
+            console.log(data);
             // alert("에러가 발생했습니다. 다시 선택해주세요. \n" + textStatus + " : " + errorThrown);
             self.close();
         }
