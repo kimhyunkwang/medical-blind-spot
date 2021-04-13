@@ -38,9 +38,13 @@ with app.app_context():
 
     # 부동산 데이터
     apart_data = pd.read_excel('data/아파트매물(위경도포함).xlsx')
+    officetel_data = pd.read_excel('data/오피스텔매물(위경도포함).xlsx')
+
+    ## 데이터 합치기
+    resid_df = pd.concat([apart_data, officetel_data], axis = 0)
 
     ## 필요한 열만 추출 & 컬럼명 변경
-    resid_df = apart_data[["검색지역", "단지명", "빌딩타입", "최소면적", "최대면적",
+    resid_df = resid_df[["검색지역", "단지명", "빌딩타입", "최소면적", "최대면적",
                         "최소매매가", "최대매매가", "최소전세가", "최대전세가", "위도", "경도"]]
     resid_df = resid_df.rename(columns = {"검색지역":"residAddr", "단지명":"residName", "빌딩타입":"residType",
                                         "최소면적":"minArea", "최대면적":"maxArea", "최소매매가":"minSalePrice",
