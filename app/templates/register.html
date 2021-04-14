@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <link rel="stylesheet" href="../static/css/login_register.css">
+    <script
+    src="https://code.jquery.com/jquery-3.6.0.js"
+    integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+     crossorigin="anonymous"></script>
+    <style>
+    @font-face {
+        font-family: 'MaplestoryOTFBold';
+        src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/MaplestoryOTFBold.woff') format('woff');
+        font-weight: normal;
+        font-style: normal;} 
+    </style>
+</head>
+<body>
+    <section class="login-form">
+        <h1>REGISTER</h1>
+        <form action="">
+            <div class="int-area">
+                <input type="text" name="name" id="name"
+                autocomplete="off" required>
+                <label for="name">이름</label>
+            </div>
+            <div class="int-area">
+                <input type="text" name="email" id="email"
+                autocomeplete="off" required>
+                <label for="email">이메일</label>
+            </div>
+            <div class="int-area">
+                <input type="password" name="password" id="password"
+                autocomplete="off" required>
+                <label for="pw">비밀번호</label>
+            </div>
+            <div class="int-area">
+                <input type="password" name="password" id="password"
+                autocomplete="off" required>
+                <label for="pw-check">비밀번호 확인</label>
+            </div>
+            <div class="btn-area">
+                <button id="btn" 
+                type="submit">회원가입</button>
+            </div>
+        </form>
+    </section>
+
+    <script>
+        let name = $('#name')
+        let email= $('#email');
+        let password = $('#password');
+        let btn = $('#btn');
+
+        $(btn).on('click', function() {
+            if($(name).val() == "") {
+                $(name).next('label').addClass('warning');
+                setTimeout(function() {
+                    $('lable').removeClass('warning');
+                },1500);
+            }
+             else if ($(email).val() == "") {
+                $(email).next('label').addClass('warning');
+                setTimeout(function() {
+                    $('lable').removeClass('warning');
+                },1500);
+            }
+            else if ($(password).val() == "") {
+                $(password).next('label').addClass('warning');
+                setTimeout(function() {
+                    $('lable').removeClass('warning');
+                },1500);
+            }
+        });
+    </script>
+</body>
+</html>
