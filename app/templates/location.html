@@ -24,7 +24,17 @@
     </form> -->
     <div>
         <div>
-            <h1>보호자의 위치를 입력해주세요.</h1>
+            <h1>보호자의 위치와 자주 가는 병원의 위치를 검색을 통해 지정해주세요.</h1>
+        </div>
+        <div>
+            <h4>보호자의 위치</h4>
+            <div id="showProtectorLocation">
+            </div>
+        </div>
+        <div>
+            <h4>자주 가는 병원의 위치</h4>
+            <div id="showHospitalLocation">
+            </div>
         </div>
     </div>
     <div class="map_wrap">
@@ -46,7 +56,7 @@
         </div>
     </div>
     <div>
-        <button onclick="location.href=`/residence?protectorLocation=${protectorLocation}&hospitalLocation=${hospitalLocation}`">다음</button>
+        <button onclick="nextPage()">다음</button>
     </div>
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=c42df0ddd0b0d12d81982f5cccb9e7b3&libraries=services"></script>
     <script type="text/javascript" src="../static/js/location.js"></script>

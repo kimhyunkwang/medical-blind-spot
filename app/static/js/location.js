@@ -82,9 +82,13 @@ function displayPlaces(places) {
     removeMarker();
     
     for ( var i=0; i<places.length; i++ ) {
+        var placePositionLat = places[i].y;
+        var placePositionLng = places[i].x;
+        placePositionLat = Math.floor(placePositionLat*1000000)/1000000;
+        placePositionLng = Math.floor(placePositionLng*1000000)/1000000;
 
         // 마커를 생성하고 지도에 표시합니다
-        var placePosition = new kakao.maps.LatLng(places[i].y, places[i].x),
+        var placePosition = new kakao.maps.LatLng(placePositionLat, placePositionLng),
             marker = addMarker(placePosition, i), 
             itemEl = getListItem(i, places[i]); // 검색 결과 항목 Element를 생성합니다
 
@@ -108,21 +112,33 @@ function displayPlaces(places) {
 
             kakao.maps.event.addListener(marker, 'click', function() {
                 var position = marker.getPosition();
-                var position_lat = position.getLat();
-                var position_lng = position.getLng();
+                var positionLat = position.getLat();
+                var positionLng = position.getLng();
+                var placeName = place.place_name;
+                positionLat = Math.floor(positionLat*1000000)/1000000;
+                positionLng = Math.floor(positionLng*1000000)/1000000;
+                console.log(positionLat);
+                console.log(positionLng);
+                console.log(placeName);
+
                 map.setLevel(4);
-                map.setCenter(new kakao.maps.LatLng(position_lat, position_lng));
+                map.setCenter(new kakao.maps.LatLng(positionLat, positionLng));
                 console.log(map.getCenter());
-                displayOverlay(place, position_lat, position_lng);
+                displayOverlay(place, positionLat, positionLng);
                 console.log(place);
             });
 
             itemEl.onclick =  function () {
                 var position = marker.getPosition();
-                var position_lat = position.getLat();
-                var position_lng = position.getLng();
+                var positionLat = position.getLat();
+                var positionLng = position.getLng();
+                positionLat = Math.floor(positionLat*1000000)/1000000;
+                positionLng = Math.floor(positionLng*1000000)/1000000;
+                console.log(positionLat);
+                console.log(positionLng);
+
                 map.setLevel(4);
-                map.setCenter(new kakao.maps.LatLng(position_lat, position_lng));
+                map.setCenter(new kakao.maps.LatLng(positionLat, positionLng));
                 console.log(map.getCenter());
             };
 
@@ -139,12 +155,16 @@ function displayPlaces(places) {
     map.setBounds(bounds);
 }
 
-function displayOverlay(place, position_lat, position_lng) {
-    var overlayPosition = new kakao.maps.LatLng(position_lat+0.0006, position_lng+0.0002);
-    
+function displayOverlay(place, positionLat, positionLng) {
+    var overlayPosition = new kakao.maps.LatLng(positionLat+0.0006, positionLng+0.0002);
+
+    var positionTitle = place.place_name;
+    var positionRoadAddress = place.road_address_name;
+    var positionAddress = place.address_name;
+
     var content = '<div class="wrap">' + 
             '    <div class="info">' + 
-            '        <div class="title">' + place.place_name + 
+            '        <div class="title">' + positionTitle + 
             '            <div class="close" onclick="closeOverlay()" title="닫기"></div>' + 
             '        </div>' + 
             '        <div class="body">' + 
@@ -152,10 +172,10 @@ function displayOverlay(place, position_lat, position_lng) {
             '                <img src="https://cfile181.uf.daum.net/image/250649365602043421936D" width="73" height="70">' +
             '           </div>' + 
             '            <div class="desc">' + 
-            '                <div class="ellipsis">'+ place.road_address_name +'</div>' + 
-            '                <div class="jibun ellipsis">'+place.address_name+'</div>' + 
-            '                <button type="button" class="select" onclick="setProtectorLocation('+position_lat+','+position_lng+')">보호자 위치로 지정</button>'+
-            '                <button type="button" class="select" onclick="setHospitalLocation('+position_lat+','+position_lng+')">병원 위치로 지정</button>'+
+            '                <div class="ellipsis">'+ positionRoadAddress +'</div>' + 
+            '                <div class="jibun ellipsis">'+positionAddress+'</div>' + 
+            '                <button type="button" class="select" onclick="setProtectorLocation('+'\''+positionTitle+'\''+','+'\''+positionRoadAddress+'\''+','+'\''+positionAddress+'\''+','+positionLat+','+positionLng+')">보호자 위치로 지정</button>'+
+            '                <button type="button" class="select" onclick="setHospitalLocation('+'\''+positionTitle+'\''+','+'\''+positionRoadAddress+'\''+','+'\''+positionAddress+'\''+','+positionLat+','+positionLng+')">병원 위치로 지정</button>'+
             '            </div>' + 
             '        </div>' + 
             '    </div>' +    
@@ -179,22 +199,48 @@ function displayOverlay(place, position_lat, position_lng) {
     customOverlay.setMap(map);
 }
 
+var protectorLocationData = {title: '', roadAddress:'', address:''};
+var hospitalLocationData = {title: '', roadAddress:'', address:''};
+
 //선택 버튼 클릭 => 보호자 위치 지정
-function setProtectorLocation(position_lat, position_lng) {
-    console.log(position_lat);
-    console.log(position_lng);
+function setProtectorLocation(positionTitle, positionRoadAddress, positionAddress, positionLat, positionLng) {
+    console.log(positionTitle);
+    console.log(positionRoadAddress);
+    console.log(positionAddress);
+
+    protectorLocationData.title = positionTitle;
+    protectorLocationData.roadAddress = positionRoadAddress;
+    protectorLocationData.address = positionAddress;
+
+    document.getElementById("showProtectorLocation").innerHTML = `
+                                                                    <p>${protectorLocationData.title}</p>
+                                                                    <p>${protectorLocationData.roadAddress}</p>
+                                                                    <p>${protectorLocationData.address}</p>
+                                                                    `;
+
     protectorLocation = {};
-    protectorLocation['lat'] = position_lat;
-    protectorLocation['lng'] = position_lng;
+    protectorLocation['lat'] = positionLat;
+    protectorLocation['lng'] = positionLng;
     console.log(protectorLocation);
 }
 
-function setHospitalLocation(position_lat, position_lng) {
-    console.log(position_lat);
-    console.log(position_lng);
+function setHospitalLocation(positionTitle, positionRoadAddress, positionAddress, positionLat, positionLng) {
+    console.log(positionTitle);
+    console.log(positionRoadAddress);
+    console.log(positionAddress);
+
+    hospitalLocationData.title = positionTitle;
+    hospitalLocationData.roadAddress = positionRoadAddress;
+    hospitalLocationData.address = positionAddress;
+
+    document.getElementById("showHospitalLocation").innerHTML = `
+                                                                    <p>${hospitalLocationData.title}</p>
+                                                                    <p>${hospitalLocationData.roadAddress}</p>
+                                                                    <p>${hospitalLocationData.address}</p>
+                                                                    `;
     hospitalLocation = {};
-    hospitalLocation['lat'] = position_lat;
-    hospitalLocation['lng'] = position_lng;
+    hospitalLocation['lat'] = positionLat;
+    hospitalLocation['lng'] = positionLng;
     console.log(hospitalLocation);
 }
 
@@ -299,14 +345,13 @@ function removeAllChildNods(el) {
 }
 
 //
-// function aa () {
-//     var now_url = new URL(location.href);
-//     var base_url = now_url.origin;
-//     console.log(now_url);
-//     console.log(base_url);
+function nextPage() {
+    var now_url = new URL(location.href);
+    var base_url = now_url.origin;
+    console.log(now_url);
+    console.log(base_url);
 
-//     new_url = `/residence?protectorLocation=${protectorLocation}&hospitalLocation=${hospitalLocation}`;
-//     console.log(new_url);
-
-//     window.location.href = base_url+new_url;
-// }
+    new_url = `/residence?protectorLat=${protectorLocation.lat}&protectorLng=${protectorLocation.lng}&hospitalLat=${hospitalLocation.lat}&hospitalLng=${hospitalLocation.lng}`;
+    console.log(new_url);
+    window.location.href = base_url+new_url;
+}
