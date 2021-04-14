@@ -7,33 +7,33 @@ session = db.session
 app = create_app()
 
 with app.app_context():
-    # # 병원 데이터
-    # hosp_data = pd.read_excel('data/hospi4.xlsx')
+    # 병원 데이터
+    hosp_data = pd.read_excel('data/hospi4.xlsx')
 
-    # ## 필요한 열만 추출
-    # hosp_df = hosp_data[["dutyName", "dutyDivNam", "dutyEmclsName", "dutyEryn", "dutyAddr", "wgs84Lon", "wgs84Lat"]]
+    ## 필요한 열만 추출
+    hosp_df = hosp_data[["dutyName", "dutyDivNam", "dutyEmclsName", "dutyEryn", "dutyAddr", "wgs84Lon", "wgs84Lat"]]
 
-    # ## 우편번호 전처리
-    # postCdn = hosp_data[["postCdn1", "postCdn2"]]
-    # postCdn = postCdn.astype("str")
+    ## 우편번호 전처리
+    postCdn = hosp_data[["postCdn1", "postCdn2"]]
+    postCdn = postCdn.astype("str")
 
-    # postCdnList1 = list(n_str[:-2] for n_str in postCdn["postCdn1"])
-    # postCdn["postCdn1"] = pd.DataFrame(postCdnList1)
-    # postCdnList2 = list(n_str[:-2] for n_str in postCdn["postCdn2"])
-    # postCdn["postCdn2"] = pd.DataFrame(postCdnList2)
+    postCdnList1 = list(n_str[:-2] for n_str in postCdn["postCdn1"])
+    postCdn["postCdn1"] = pd.DataFrame(postCdnList1)
+    postCdnList2 = list(n_str[:-2] for n_str in postCdn["postCdn2"])
+    postCdn["postCdn2"] = pd.DataFrame(postCdnList2)
 
-    # postCdn["postCdn"] = postCdn["postCdn1"] + postCdn["postCdn2"]
-    # postCdn = postCdn.drop(["postCdn1", "postCdn2"], axis = 1)
+    postCdn["postCdn"] = postCdn["postCdn1"] + postCdn["postCdn2"]
+    postCdn = postCdn.drop(["postCdn1", "postCdn2"], axis = 1)
 
-    # ## hosp_df 데이터프레임과 우편번호 데이터프레임 병합
-    # hosp_df = pd.concat([hosp_df, postCdn], axis = 1)
+    ## hosp_df 데이터프레임과 우편번호 데이터프레임 병합
+    hosp_df = pd.concat([hosp_df, postCdn], axis = 1)
 
-    # ## null 값 처리
-    # hosp_df.loc[hosp_df.wgs84Lat.isna(), 'wgs84Lat'] = -1
-    # hosp_df.loc[hosp_df.wgs84Lon.isna(), 'wgs84Lon'] = -1
-    # hosp_df.loc[hosp_df.postCdn == 'nn', 'postCdn'] = -1
+    ## null 값 처리
+    hosp_df.loc[hosp_df.wgs84Lat.isna(), 'wgs84Lat'] = -1
+    hosp_df.loc[hosp_df.wgs84Lon.isna(), 'wgs84Lon'] = -1
+    hosp_df.loc[hosp_df.postCdn == 'nn', 'postCdn'] = -1
 
-    # db.session.bulk_insert_mappings(Hospital, hosp_df.to_dict(orient="records"))
+    db.session.bulk_insert_mappings(Hospital, hosp_df.to_dict(orient="records"))
 
 
     # 부동산 데이터
@@ -61,7 +61,6 @@ with app.app_context():
     resid_df["maxJeonsePrice"] = resid_df["maxJeonsePrice"].map(lambda x : x.replace('억','').replace(',', '').replace(' ', ''), na_action='ignore')
     resid_df["maxJeonsePrice"] = resid_df["maxJeonsePrice"].astype('float')
 
-
     def division(x):
         if x > 1000:
             return x / 10000
@@ -71,7 +70,6 @@ with app.app_context():
     resid_df["maxSalePrice"] = resid_df["maxSalePrice"].apply(division)
     resid_df["minJeonsePrice"] = resid_df["minJeonsePrice"].apply(division)
     resid_df["maxJeonsePrice"] = resid_df["maxJeonsePrice"].apply(division)
-
 
     ## null 값 처리
     resid_df.loc[resid_df.minArea.isna(), 'minArea'] = -1
