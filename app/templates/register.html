@@ -28,7 +28,7 @@
                 <label for="name">이름</label>
             </div>
             <div class="int-area">
-                <input type="text" name="email" id="email"
+                <input type="email" name="email" id="email"
                 autocomeplete="off" required>
                 <label for="email">이메일</label>
             </div>
@@ -38,7 +38,7 @@
                 <label for="pw">비밀번호</label>
             </div>
             <div class="int-area">
-                <input type="password" name="password" id="password"
+                <input type="password" name="password_check" id="password_check"
                 autocomplete="off" required>
                 <label for="pw-check">비밀번호 확인</label>
             </div>
@@ -53,6 +53,7 @@
         let name = $('#name')
         let email= $('#email');
         let password = $('#password');
+        let password_check = $('#password_check');
         let btn = $('#btn');
 
         $(btn).on('click', function() {
@@ -62,7 +63,7 @@
                     $('lable').removeClass('warning');
                 },1500);
             }
-             else if ($(email).val() == "") {
+            else if ($(email).val() == "") {
                 $(email).next('label').addClass('warning');
                 setTimeout(function() {
                     $('lable').removeClass('warning');
@@ -70,6 +71,12 @@
             }
             else if ($(password).val() == "") {
                 $(password).next('label').addClass('warning');
+                setTimeout(function() {
+                    $('lable').removeClass('warning');
+                },1500);
+            }
+            else if ($(password_check).val() == "") {
+                $(password_check).next('label').addClass('warning');
                 setTimeout(function() {
                     $('lable').removeClass('warning');
                 },1500);
