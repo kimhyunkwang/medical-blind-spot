@@ -85,6 +85,19 @@ body {
 .button:hover .button-text {
   color:#fff; }
 
+#filtering_box {
+  font-family: MaplestoryOTFBold;
+  float:right;
+}
+  
+ #map {
+  width: 67.8%;
+  height:100vh;
+  position:relative;
+  overflow:hidden;
+  z-index:1;
+    
+}
 
 .marker {
     width: 15px;
