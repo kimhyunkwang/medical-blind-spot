@@ -111,6 +111,10 @@ function displayPlaces(places) {
             });
 
             kakao.maps.event.addListener(marker, 'click', function() {
+                if(customOverlay != null){
+                    closeOverlay();
+                }
+                
                 var position = marker.getPosition();
                 var positionLat = position.getLat();
                 var positionLng = position.getLng();
@@ -155,6 +159,8 @@ function displayPlaces(places) {
     map.setBounds(bounds);
 }
 
+var customOverlay = null;
+
 function displayOverlay(place, positionLat, positionLng) {
     var overlayPosition = new kakao.maps.LatLng(positionLat+0.0006, positionLng+0.0002);
 
@@ -168,9 +174,6 @@ function displayOverlay(place, positionLat, positionLng) {
             '            <div class="close" onclick="closeOverlay()" title="닫기"></div>' + 
             '        </div>' + 
             '        <div class="body">' + 
-            '            <div class="img">' +
-            '                <img src="https://cfile181.uf.daum.net/image/250649365602043421936D" width="73" height="70">' +
-            '           </div>' + 
             '            <div class="desc">' + 
             '                <div class="ellipsis">'+ positionRoadAddress +'</div>' + 
             '                <div class="jibun ellipsis">'+positionAddress+'</div>' + 
@@ -181,22 +184,19 @@ function displayOverlay(place, positionLat, positionLng) {
             '    </div>' +    
             '</div>';
 
-    var customOverlay = new kakao.maps.CustomOverlay({
+    customOverlay = new kakao.maps.CustomOverlay({
         position: overlayPosition,
         content: content,
         xAnchor: 0.3,
         yAnchor: 0.91
     });
 
-    //closeOverlay를 밖에서 선언하면, customOverlay를 모르고,
-    //안에서 선언하면, closeOverlay를 모름.. 어떡하냐...
-
-    function closeOverlay() {
-        console.log("closeOverlay!!");
-        customOverlay.setMap(null);     
-    }
-
     customOverlay.setMap(map);
+}
+
+function closeOverlay(){
+    console.log("closeOverlay!!");
+    customOverlay.setMap(null);     
 }
 
 var protectorLocationData = {title: '', roadAddress:'', address:''};
