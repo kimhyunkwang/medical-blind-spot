@@ -29,52 +29,56 @@
         </button></a>
         </nav>
     </header>
-    <div id= "filtering_box" style="width=30%">
-    <form action = "" method = "post">
-        <h3>지역 선택</h3>
-        <select name="region1">
-            <option value="1">서울특별시</option>
-            <option value="2">부산광역시</option>
-            <option value="3">대구광역시</option>
-            <option value="4">인천광역시</option>
-            <option value="5">광주광역시</option>
-            <option value="6">대전광역시</option>
-            <option value="7">울산광역시</option>
-            <option value="8">세종특별자치시</option>
-            <option value="9">경기도</option>
-            <option value="10">강원도</option>
-            <option value="11">충청북도</option>
-            <option value="12">충청남도</option>
-            <option value="13">전라북도</option>
-            <option value="14">전라남도</option>
-            <option value="15">경상북도</option>
-            <option value="16">경상남도</option>
-            <option value="17">제주특별자치도</option>
-        </select><br><br>
-        
-        <h3>병원 분류 선택</h3>
-        <input type="checkbox" name="hosp_div" value="div1"> 한의원
-        <input type="checkbox" name="hosp_div" value="div2"> 한방병원
-        <input type="checkbox" name="hosp_div" value="div3"> 치과의원
-        <input type="checkbox" name="hosp_div" value="div4"> 치과병원
-        <input type="checkbox" name="hosp_div" value="div5"> 종합병원
-        <input type="checkbox" name="hosp_div" value="div6"> 요양병원
-        <input type="checkbox" name="hosp_div" value="div7"> 병원
-        <input type="checkbox" name="hosp_div" value="div8"> 의원
-        <input type="checkbox" name="hosp_div" value="div9"> 보건소
-        <input type="checkbox" name="hosp_div" value="div10"> 기타(구급차)
-        <input type="checkbox" name="hosp_div" value="div11"> 기타
-
-        <input type="submit" id="search" value="검색">
+    <div id= "filtering_box">
+        <form action = "" method = "post">
+            <section id = "region_select">
+                <h3>지역 선택</h3>
+                <select name="region1" class = "option_box">
+                    <option value="1" id="city1">서울특별시</option>
+                    <option value="2" id="city2">부산광역시</option>
+                    <option value="3" id="city3">대구광역시</option>
+                    <option value="4" id="city4">인천광역시</option>
+                    <option value="5" id="city5">광주광역시</option>
+                    <option value="6" id="city6">대전광역시</option>
+                    <option value="7" id="city7">울산광역시</option>
+                    <option value="8" id="city8">세종특별자치시</option>
+                    <option value="9" id="city9">경기도</option>
+                    <option value="10" id="city10">강원도</option>
+                    <option value="11" id="city11">충청북도</option>
+                    <option value="12" id="city12">충청남도</option>
+                    <option value="13" id="city13">전라북도</option>
+                    <option value="14" id="city14">전라남도</option>
+                    <option value="15" id="city15">경상북도</option>
+                    <option value="16" id="city16">경상남도</option>
+                    <option value="17" id="city17">제주특별자치도</option>
+                </select>
+            </section>
+    
+            <section class = "hospital_select">
+            <h3>병원 분류 선택</h3>
+            <input type="checkbox" name="hosp_div" value="div1" id="checkbox1"> 한의원
+            <input type="checkbox" name="hosp_div" value="div2" id="checkbox2"> 한방병원
+            <input type="checkbox" name="hosp_div" value="div3" id="checkbox3"> 치과의원
+            <input type="checkbox" name="hosp_div" value="div4" id="checkbox4"> 치과병원
+            <input type="checkbox" name="hosp_div" value="div5" id="checkbox5"> 종합병원
+            <input type="checkbox" name="hosp_div" value="div6" id="checkbox6"> 요양병원
+            <input type="checkbox" name="hosp_div" value="div7" id="checkbox7"> 병원
+            <input type="checkbox" name="hosp_div" value="div8" id="checkbox8"> 의원
+            <input type="checkbox" name="hosp_div" value="div9" id="checkbox9"> 보건소
+            <input type="checkbox" name="hosp_div" value="div10" id="checkbox10"> 기타(구급차)
+            <input type="checkbox" name="hosp_div" value="div11" id="checkbox11"> 기타
+    
+            <input type="submit" id="search" value="검색" onclick="save()">
+            </section>
         </div>
-    </form>
-
-    <div id="map" style="width=60%;height:80vh;"></div>
+        </form>
+    
+    <div id="map"></div>
     
     <span id="hospital"></span>
     <script type="text/javascript" src = "../static/js/MarkerClustering.js"></script>
+    <script type='text/javascript' src = "../static/js/checkbox.js"></script>
     <script type='text/javascript'>
-    
         let mapOptions = {
             center: new naver.maps.LatLng(37.3595704, 127.105399),
             zoom: 6,
