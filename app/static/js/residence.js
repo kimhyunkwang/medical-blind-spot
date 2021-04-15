@@ -26,7 +26,7 @@ var hospitalLng = 126.911691;
 // console.log(hospitalLng);
 
 $.ajax({
-	type: "GET", //요청 메소드 방식
+	type: "GET",
 	url:"/api/residence",
     data: {
         protectorLat : protectorLat,
@@ -34,28 +34,23 @@ $.ajax({
         hospitalLat : hospitalLat,
         hospitalLng : hospitalLng
     },
-	dataType : "json", //서버가 요청 URL을 통해서 응답하는 내용의 타입
+	dataType : "json",
 	success : function(result){
-		//서버의 응답데이터가 클라이언트에게 도착하면 자동으로 실행되는함수(콜백)
-		//result - 응답데이터
-		//$('#result').text(result);
-		alert(result);
         console.log(result);
         var formattedData = formatting(result.result);
         var dataForMarker = formattingForMarker(formattedData);
         showMarker(dataForMarker);
 	},
 	error : function(a, b, c){
-		//통신 실패시 발생하는 함수(콜백)
 		alert(a + b + c);
 	}
 });
 
-//result formating
 var data = [];
 var dataForMarker =[];
 var filteredData = [];
 
+//매물데이터를 형식에 맞게 변환
 function formatting(result){
 
     for (var i=0; i < result.length; i++){
@@ -90,6 +85,7 @@ function formatting(result){
         }
 
         var formattedResult = {
+            id : result[i].id,
             name : result[i].residName,
             address : result[i].residAddr,
             Lat : Math.floor(result[i].latitude*1000000)/1000000,
@@ -111,6 +107,7 @@ function formatting(result){
     return data;
 }
 
+//마커 표시를 위해 형식에 맞게 변환
 function formattingForMarker(data){
     var dataForMarker =[];
     for (var i=0; i < data.length; i++){
@@ -124,13 +121,14 @@ function formattingForMarker(data){
     return dataForMarker;
 }
 
-//filters
+//필터
 var typeFilter = {apartment: false, officetel: false};
 var tradeFilter = {sale: false, jeonse: false};
 var salePriceFilter = {minSalePrice: '', maxSalePrice: ''};
 var jeonsePriceFilter = {minJeonsePrice: '', maxJeonsePrice: ''};
 var areaFilter = {minArea:'', maxArea:''};
 
+//각 필터링 별 함수
 function handleChangeTypeFilter() {
     var checkApartment = document.getElementById("checkApartment");
     var checkOfficetel = document.getElementById("checkOfficetel");
@@ -245,7 +243,7 @@ function handleChangeAreaFilter(){
     console.log(areaFilter);
 } 
 
-
+// 지도 관련
 var mapContainer = document.getElementById('map'), // 지도를 표시할 div  
 mapOption = { 
     center: new kakao.maps.LatLng(37.526222, 127.024481), // 지도의 중심좌표
@@ -254,8 +252,7 @@ mapOption = {
 
 var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
 
-
-// 마커를 표시할 위치와 title 객체 배열
+// 보호자 위치, 병원 위치 마커 표시
 var positions = [
     {
         title: '보호자 위치', 
@@ -267,8 +264,6 @@ var positions = [
     }
 ];
 
-// 지도에 표시된 마커 객체를 가지고 있을 배열입니다
-var markers = [];
 // 마커 이미지의 이미지 주소입니다
 var positionImageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png"; 
 bounds = new kakao.maps.LatLngBounds();
@@ -295,6 +290,9 @@ for (var i = 0; i < positions.length; i ++) {
     map.setBounds(bounds);
 }
 
+// 지도에 표시된 마커 객체를 가지고 있을 배열입니다
+var markers = [];
+
 function setMarkers(map) {
     console.log("setMarkers");
     for (var i = 0; i < markers.length; i++) {
@@ -318,12 +316,101 @@ function showMarker(dataForMarker){
             map: map, // 마커를 표시할 지도
             position: dataForMarker[i].latlng, // 마커를 표시할 위치
             title : dataForMarker[i].title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
-            image : positionMarkerImage // 마커 이미지 
+            image : datamarkerImage // 마커 이미지 
         });
+
+        (function(marker, dataForMarker) {
+            kakao.maps.event.addListener(marker, 'click', function() {
+                if(customOverlay != null){
+                    closeOverlay();
+                }
+
+                var positionLat = dataForMarker.latlng.Ma;
+                var positionLng = dataForMarker.latlng.La;
+                var placeName = dataForMarker.title;
+
+                map.setLevel(4);
+                map.setCenter(new kakao.maps.LatLng(positionLat, positionLng));
+                displayOverlay(dataForMarker, positionLat, positionLng);
+            });
+        })(houseMarker, dataForMarker[i]);
 
         markers.push(houseMarker);
     }
 }
+
+var customOverlay = null;
+
+function displayOverlay(place, positionLat, positionLng) {
+    var overlayPosition = new kakao.maps.LatLng(positionLat+0.0006, positionLng+0.0002);
+
+    var placeID = place.info.id;
+    var title = place.title;
+    var minSalePrice= place.info.minSalePrice;
+    var maxSalePrice= place.info.maxSalePrice;
+    var minJeonsePrice= place.info.minJeonsePrice;
+    var maxJeonsePrice= place.info.maxJeonsePrice;
+    var minArea = place.info.minArea;
+    var maxArea = place.info.maxArea;
+
+    var content = '<div class="wrap">' + 
+            '    <div class="info">' + 
+            '        <div class="title">' + title + 
+            '            <div class="close" onclick="closeOverlay()" title="닫기"></div>' + 
+            '        </div>' + 
+            '        <div class="body">' + 
+            '            <div class="desc">' + 
+            `               <div class="ellipsis">매매가:${minSalePrice}~${maxSalePrice}</div>`+
+            `               <div class="ellipsis">전세가:${minJeonsePrice}~${maxJeonsePrice}</div>`+
+            `               <div class="ellipsis">평수:${minJeonsePrice}~${maxJeonsePrice}</div>`+
+            '               <button type="button" class="select" onclick="pickHouse('+'\''+placeID+'\''+','+'\''+title+'\''+')">후보 매물로 지정</button>'+
+            '            </div>' + 
+            '        </div>' + 
+            '    </div>' +    
+            '</div>';
+
+    customOverlay = new kakao.maps.CustomOverlay({
+        position: overlayPosition,
+        content: content,
+        xAnchor: 0.3,
+        yAnchor: 0.91
+    });
+
+    customOverlay.setMap(map);
+}
+
+function closeOverlay(){
+    console.log("closeOverlay!!");
+    customOverlay.setMap(null);     
+}
+
+
+//후보 매물 지정
+var pickedHouseTitle = [];
+var pickedHouseID = [];
+
+function pickHouse(placeID, title){
+    if(pickedHouseTitle.length < 3){
+        pickedHouseTitle.push(title);
+        pickedHouseID.push(placeID);
+
+        var htmlDiv = document.createElement('div');
+        htmlDiv.id = placeID;
+        htmlDiv.innerHTML = `<p>${title}</p><button onclick="cancelPick(`+'\''+placeID+'\''+','+'\''+title+'\''+`)">취소</button>`;
+        document.getElementById("showPickedHouse").appendChild(htmlDiv);
+    } else {
+        alert("후보 매물은 3개까지만 가능합니다");
+    }
+}
+
+//후보 매물 취소
+function cancelPick(placeID, title){
+    var a = document.getElementById(placeID);
+    a.parentNode.removeChild(a);
+    pickedHouseTitle = pickedHouseTitle.filter((element) => element != title);
+    pickedHouseID = pickedHouseID.filter((element) => element != placeID);
+}
+
 
 //데이터 필터링
 function applyFilter(data, typeFilter, tradeFilter, salePriceFilter, jeonsePriceFilter, areaFilter){
@@ -406,9 +493,19 @@ function applyFilter(data, typeFilter, tradeFilter, salePriceFilter, jeonsePrice
     return filteredData
 }
 
+//필터링 적용한 검색
 function search(){
     var filteredData = applyFilter(data, typeFilter, tradeFilter, salePriceFilter, jeonsePriceFilter, areaFilter);
     console.log(filteredData);
     var dataForMarker = formattingForMarker(filteredData);
     showMarker(dataForMarker);
+}
+
+//페이지 넘기기
+function nextPage(){
+    var now_url = new URL(location.href);
+    var base_url = now_url.origin;
+
+    new_url = `/myPage?pick_1=${pickedHouseID[0]}&pick_2=${pickedHouseID[1]}&pick_3=${pickedHouseID[2]}&protectorLat=${protectorLat}&protectorLng=${protectorLng}&hospitalLat=${hospitalLat}&hospitalLng=${hospitalLng}`;
+    window.location.href = base_url+new_url;
 }

@@ -10,6 +10,9 @@
 
 <body>
     <div class="row content">
+        <div id="showPickedHouse">
+            <h1>후보 매물</h1>
+        </div>
         <div class="col-md-2">
             <div>
                 <h1>원하는 추가 조건이 있다면 입력해주세요</h1>
@@ -84,8 +87,7 @@
                     평
                 </form>
             </div>
-            <button onclick="search()">조건 적용 검색</button>  
-            <button onclick="removeMarkers()">마크 삭제</button> 
+            <button onclick="search()">조건 적용 검색</button>
         </div>
         <div class="col-md-10">
             <div id="map" style="width:100%;height:100%;"></div>
@@ -94,7 +96,7 @@
     
     <div class="row page_navigator">
         <button type="button" class="btn btn-primary btn-lg">이전</button>
-        <button type="button" class="btn btn-primary btn-lg">다음</button>
+        <button type="button" class="btn btn-primary btn-lg" onclick="nextPage()">다음</button>
     </div>
 
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=c42df0ddd0b0d12d81982f5cccb9e7b3&libraries=services"></script>
