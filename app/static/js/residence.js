@@ -20,27 +20,81 @@ var hospitalLng = 126.911691;
 // var hospitalLat = getParameterByName("hospitalLat");
 // var hospitalLng = getParameterByName("hospitalLng");
 
-console.log(protectorLat);
-console.log(protectorLng);
-console.log(hospitalLat);
-console.log(hospitalLng);
+// console.log(protectorLat);
+// console.log(protectorLng);
+// console.log(hospitalLat);
+// console.log(hospitalLng);
 
-getHouses();
-function getHouses() {
-    var url = "/api/residence";
-    fetch(url, {
-         protectorLat : protectorLat,
-         protectorLng : protectorLng,
-         hospitalLat : hospitalLat,
-         hospitalLng : hospitalLng
-        })
-        .then(function (type) {
-            return type.json();
-        })
-        .then(function (result) {
-            console.log(result);
-        });
-}
+// getHouses();
+// function getHouses() {
+//     var url = "/residence";
+//     fetch(url, {
+//          protectorLat : protectorLat,
+//          protectorLng : protectorLng,
+//          hospitalLat : hospitalLat,
+//          hospitalLng : hospitalLng
+//         })
+//         .then(function (type) {
+//             return type.json();
+//         })
+//         .then(function (result) {
+//             console.log(result);
+//         });
+// }
+
+$.ajax({
+	type: "GET", //요청 메소드 방식
+	url:"/api/residence",
+    data: {
+        protectorLat : protectorLat,
+        protectorLng : protectorLng,
+        hospitalLat : hospitalLat,
+        hospitalLng : hospitalLng
+    },
+	dataType : "json", //서버가 요청 URL을 통해서 응답하는 내용의 타입
+	success : function(result){
+		//서버의 응답데이터가 클라이언트에게 도착하면 자동으로 실행되는함수(콜백)
+		//result - 응답데이터
+		//$('#result').text(result);
+		alert(result);
+        console.log(result);
+	},
+	error : function(a, b, c){
+		//통신 실패시 발생하는 함수(콜백)
+		alert(a + b + c);
+	}
+});
+
+//result formating
+
+// 가격 단위 수정
+// result.maxSalePrice 가 1.0 이면 1억이므로, * 10 해서 10천만원이 돼야 함.
+
+// if (result.maxJeonsePrice == -1.0){
+//     var isJeonse = false;
+//     var minJeonsePrice = '';
+//     var maxJeonsePrice = '';
+// } else {
+//     var isJeonse = true;
+//     var minJeonsePrice = result.minJeonsePrice;
+//     var maxJeonsePrice = result.maxJeonsePrice;
+// }
+
+// var data = {
+//     name : result.residName,
+//     address : result.residAddr,
+//     Lat : result.latitude,
+//     Lng : result.longitude,
+//     type : "apartment",   //result.residType
+//     sale : true,        //result.maxSalePrice result.minSalePrice
+//     jeonse : isJeonse,      //result.maxJeonsePrice result.minJeonsePrice
+//     minSalePrice : '',
+//     maxSalePrice : '',
+//     minJeonsePrice : minJeonsePrice,
+//     maxJeonsePrice : maxJeonsePrice,
+//     minArea : result.minArea,
+//     maxArea : result.maxArea
+// };
 
 //filters
 // var typeFilter = {apartment: false, officetel: false};
@@ -158,15 +212,60 @@ function getHouses() {
 //     console.log(areaFilter);
 // } 
 
-// var typeFilter = {apartment: false, officetel: false};
-// var tradeFilter = {sale: false, jeonse: false};
-// var salePriceFilter = {minSalePrice: '', maxSalePrice: ''};
-// var jeonsePriceFilter = {minJeonsePrice: '', maxJeonsePrice: ''};
-// var areaFilter = {minArea:'', maxArea:''};
 
-// //데이터 필터링
-// function applyFilter(){
 
+
+var mapContainer = document.getElementById('map'), // 지도를 표시할 div  
+mapOption = { 
+    center: new kakao.maps.LatLng(37.526222, 127.024481), // 지도의 중심좌표
+    level: 3 // 지도의 확대 레벨
+};
+
+var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+
+
+// 마커를 표시할 위치와 title 객체 배열
+var positions = [
+    {
+        title: '보호자 위치', 
+        latlng: new kakao.maps.LatLng(protectorLat, protectorLng)
+    },
+    {
+        title: '병원 위치', 
+        latlng: new kakao.maps.LatLng(hospitalLat, hospitalLng)
+    }
+];
+
+
+// 마커 이미지의 이미지 주소입니다
+var imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png"; 
+bounds = new kakao.maps.LatLngBounds();
+
+for (var i = 0; i < positions.length; i ++) {
+    
+    // 마커 이미지의 이미지 크기 입니다
+    var imageSize = new kakao.maps.Size(24, 35); 
+    
+    // 마커 이미지를 생성합니다    
+    var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize); 
+    
+    // 마커를 생성합니다
+    var marker = new kakao.maps.Marker({
+        map: map, // 마커를 표시할 지도
+        position: positions[i].latlng, // 마커를 표시할 위치
+        title : positions[i].title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
+        image : markerImage // 마커 이미지 
+    });
+
+    //두 위치에 맞게 지도 영역 조절
+    var placePosition = new kakao.maps.LatLng(positions[i].latlng.Ma,positions[i].latlng.La);
+    console.log(placePosition);
+    bounds.extend(placePosition);
+    map.setBounds(bounds);
+}
+
+
+//데이터 필터링
 //     var data = {
 //         name : '',
 //         address : '',
@@ -182,7 +281,11 @@ function getHouses() {
 //         minArea : '',
 //         maxArea : ''
 //     };
-    
+
+// function applyFilter(){
+       
+// //for i in data[i] 로 for문 돌면서 
+
 //     console.log(typeFilter);
 //     console.log(tradeFilter);
 //     console.log(salePriceFilter);
@@ -241,53 +344,48 @@ function getHouses() {
 //     }
 
 //     filteredData.append(formatedData);
+
+//     return filteredData
 // }
 
+// function search(){
 
-var mapContainer = document.getElementById('map'), // 지도를 표시할 div  
-mapOption = { 
-    center: new kakao.maps.LatLng(37.526222, 127.024481), // 지도의 중심좌표
-    level: 3 // 지도의 확대 레벨
-};
+//     var filteredData = applyFilter(data, typeFilter, tradeFilter, salePriceFilter, jeonsePriceFilter, areaFilter);
 
-var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+//     var filteredData = [
+//         {
+//             title: '매물 1', 
+//             latlng: new kakao.maps.LatLng(37.492597, 126.958883)
+//         },
+//         {
+//             title: '매물 2', 
+//             latlng: new kakao.maps.LatLng(37.526222, 127.024481)
+//         },
+//     ];
 
+//     var imageSrc = 'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_red.png';
+//     bounds = new kakao.maps.LatLngBounds();
 
-// 마커를 표시할 위치와 title 객체 배열
-var positions = [
-    {
-        title: '보호자 위치', 
-        latlng: new kakao.maps.LatLng(protectorLat, protectorLng)
-    },
-    {
-        title: '병원 위치', 
-        latlng: new kakao.maps.LatLng(hospitalLat, hospitalLng)
-    }
-];
-
-// 마커 이미지의 이미지 주소입니다
-var imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png"; 
-bounds = new kakao.maps.LatLngBounds();
-
-for (var i = 0; i < positions.length; i ++) {
+//     for (var i = 0; i < filteredData.length; i ++) {
     
-    // 마커 이미지의 이미지 크기 입니다
-    var imageSize = new kakao.maps.Size(24, 35); 
+//         // 마커 이미지의 이미지 크기 입니다
+//         var imageSize = new kakao.maps.Size(24, 35); 
+        
+//         // 마커 이미지를 생성합니다    
+//         var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize); 
+        
+//         // 마커를 생성합니다
+//         var marker = new kakao.maps.Marker({
+//             map: map, // 마커를 표시할 지도
+//             position: filteredData[i].latlng, // 마커를 표시할 위치
+//             title : filteredData[i].title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
+//             image : markerImage // 마커 이미지 
+//         });
     
-    // 마커 이미지를 생성합니다    
-    var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize); 
-    
-    // 마커를 생성합니다
-    var marker = new kakao.maps.Marker({
-        map: map, // 마커를 표시할 지도
-        position: positions[i].latlng, // 마커를 표시할 위치
-        title : positions[i].title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
-        image : markerImage // 마커 이미지 
-    });
-
-    //두 위치에 맞게 지도 영역 조절
-    var placePosition = new kakao.maps.LatLng(positions[i].latlng.Ma,positions[i].latlng.La);
-    console.log(placePosition);
-    bounds.extend(placePosition);
-    map.setBounds(bounds);
-}
+//         //두 위치에 맞게 지도 영역 조절
+//         var placePosition = new kakao.maps.LatLng(filteredData[i].latlng.Ma,filteredData[i].latlng.La);
+//         console.log(placePosition);
+//         bounds.extend(placePosition);
+//         map.setBounds(bounds);
+//     }
+// }
