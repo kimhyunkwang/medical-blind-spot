@@ -12,8 +12,8 @@ services:
       MYSQL_USER: "elice"
       MYSQL_PASSWORD: "1234"
       MYSQL_ROOT_PASSWORD: "1234"
-    volumes_from:
-        - dataonly
+    volumes:
+      - dataonly
 
   flask:
     build: .
