@@ -1,29 +1,37 @@
-function showMypage(){
-    $.ajax({
-        type: "GET",
-        url:"/api/mypage",
-        dataType : "json",
-        success : function(result){
-            if(result.result == "error"){
-                alert("로그인이 필요한 서비스입니다.");
-                location.href = "/login";
-            } else {
-                console.log(result);
-                location.href = "/mypage";
-                console.log(result);
-                // var formattedData = formatting(result.result);
-                // var houses = formattingForHouseMarker(formattedData);
-                // showHouseInfo(formattedData);       
-                // showMarker(positions, positionImageSrc);
-                // showMarker(houses, housesImageSrc);
-            }
-        },
-        error : function(a, b, c){
-            alert(a + b + c);
+$.ajax({
+    type: "GET",
+    url:"/api/mypage",
+    dataType : "json",
+    success : function(result){
+        if(result.result == "error"){
+            alert("로그인이 필요한 서비스입니다.");
+            location.href = "/login";
+        } else {
+            console.log(result);
+            var residResult = result.result.resid_result;
+            var userResult = result.result.user_result[0];
+            var positions = [
+                {
+                    title: '보호자 위치', 
+                    latlng: new kakao.maps.LatLng(userResult.protectorLat, userResult.protectorLng)
+                },
+                {
+                    title: '병원 위치', 
+                    latlng: new kakao.maps.LatLng(userResult.hospitalLat, userResult.hospitalLng)
+                }
+            ];
+            console.log(positions);
+            var formattedData = formatting(residResult);
+            var houses = formattingForHouseMarker(formattedData);
+            showHouseInfo(formattedData);       
+            showMarker(positions, positionImageSrc);
+            showMarker(houses, housesImageSrc);
         }
-    });
-}
-
+    },
+    error : function(a, b, c){
+        alert(a + b + c);
+    }
+});
 
 var data = [];
 
@@ -84,7 +92,6 @@ function formatting(result){
     return data;
 }
 
-
 // 지도 관련
 var mapContainer = document.getElementById('map'), // 지도를 표시할 div  
 mapOption = { 
@@ -94,17 +101,16 @@ mapOption = {
 
 var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
 
-// 보호자 위치, 병원 위치 마커 표시
-var positions = [
-    {
-        title: '보호자 위치', 
-        latlng: new kakao.maps.LatLng(protectorLat, protectorLng)
-    },
-    {
-        title: '병원 위치', 
-        latlng: new kakao.maps.LatLng(hospitalLat, hospitalLng)
-    }
-];
+// function makeMap(){
+//         // 지도 관련
+//     var mapContainer = document.getElementById('map'), // 지도를 표시할 div  
+//     mapOption = { 
+//         center: new kakao.maps.LatLng(37.526222, 127.024481), // 지도의 중심좌표
+//         level: 3 // 지도의 확대 레벨
+//     };
+
+//     var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+// }
 
 function formattingForHouseMarker(data){
     var houses = [
@@ -124,7 +130,6 @@ function formattingForHouseMarker(data){
 
     return houses;
 }
-
 
 // 마커 이미지의 이미지 주소입니다
 var positionImageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png"; 
