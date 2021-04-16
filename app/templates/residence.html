@@ -1,52 +1,107 @@
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
-    <title>키워드로 장소검색하고 목록으로 표출하기</title>
     <link rel="stylesheet" href="../static/css/residence.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 </head>
 
 <body>
-    <!-- <h1>주거지 찾기</h1>
-    <form action = "" method = "post">
-        <h3>보호자 위치</h3>
-        <input type="text" id="protector" placeholder="주소를 입력해주세요." >
-
-        <h3>고정적으로 방문할 의료・복지 시설</h3>
-        <input type="text" id="facility" placeholder="시설 이름을 입력해주세요." >
-
-        <h3>최대 가격</h3>
-        <input type="number" name="max_price" min="0" max="20000000000" required> 만 원
-
-        <h3>최소 면적</h3>
-        <input type="number" name="min_area" min="0" max="500" required> m<sup>2</sup><br><br>
-
-        <input type="submit" id="search" value="검색">
-    </form> -->
-    <div>
-        <div>
-            <h1>보호자의 위치를 입력해주세요.</h1>
+    <div class="row content">
+        <div id="showPickedHouse">
+            <h1>후보 매물</h1>
+        </div>
+        <div class="col-md-2">
+            <div>
+                <h1>원하는 추가 조건이 있다면 입력해주세요</h1>
+            </div>
+            <div>
+                <div>
+                    <h4>유형</h4>
+                </div>
+                <label class="radio-inline">
+                    <input type="checkbox" id="checkApartment" value="apartment" onchange="handleChangeTypeFilter()"> 아파트
+                </label>
+                <label class="radio-inline">
+                    <input type="checkbox" id="checkOfficetel" value="officetel" onchange="handleChangeTypeFilter()"> 오피스텔
+                </label>
+            </div>
+            <div>
+                <div>
+                    <h4>거래방식</h4>
+                </div>
+                <label class="radio-inline">
+                    <input type="checkbox" id="checkSale" value="sale" onchange="handleChangeTradeFilter()"> 매매
+                </label>
+                <label class="radio-inline">
+                    <input type="checkbox" id="checkJeonse" value="jeonse" onchange="handleChangeTradeFilter()"> 전세
+                </label>
+            </div>
+            <div id="salePriceDiv" style="display:none">
+                <div>
+                    <h4>매매가</h4>
+                </div>
+                <form class="form-inline">
+                    <div class="form-group">
+                      <input type="text" id="minSalePriceInput" class="form-control" onchange="handleChangeSalePriceFilter()">
+                    </div>
+                    천만원 ~
+    
+                    <div class="form-group">
+                      <input type="text" id="maxSalePriceInput" class="form-control" onchange="handleChangeSalePriceFilter()">
+                    </div>
+                    천만원
+                </form>
+            </div>
+            <div id="jeonsePriceDiv" style="display:none">
+                <div>
+                    <h4>전세가</h4>
+                </div>
+                <form class="form-inline">
+                    <div class="form-group">
+                      <input type="text" id="minJeonsePriceInput" class="form-control" onchange="handleChangeJeonsePriceFilter()">
+                    </div>
+                    천만원 ~
+                    
+                    <div class="form-group">
+                      <input type="text" id="maxJeonsePriceInput" class="form-control" onchange="handleChangeJeonsePriceFilter()">
+                    </div>
+                    천만원
+                </form>
+            </div>
+            <div>
+                <div>
+                    <h4>전용 면적</h4>
+                </div>
+                <form class="form-inline">
+                    <div class="form-group">
+                      <input type="text"  id="minAreaInput" class="form-control" onchange="handleChangeAreaFilter()">
+                    </div>
+                    평 ~ 
+                    
+                    <div class="form-group">
+                        <input type="text" id="maxAreaInput" class="form-control" onchange="handleChangeAreaFilter()">
+                    </div>
+                    평
+                </form>
+            </div>
+            <button onclick="search()">조건 적용 검색</button>
+        </div>
+        <div class="col-md-10" style="width: 1300px;px;height:800px;">
+            <div id="map" style="width:100%;height:100%;"></div>
         </div>
     </div>
-    <div class="map_wrap">
-        <div id="map" style="width:100%;height:100%;position:relative;overflow:hidden;"></div>
-
-
-        <div id="menu_wrap" class="bg_white">
-            <div class="option">
-                <div>
-                    <form onsubmit="searchPlaces(); return false;">
-                        키워드 : <input type="text" value="현대아파트" id="keyword" size="15"> 
-                        <button type="submit">검색하기</button> 
-                    </form>
-                </div>
-            </div>
-            <hr>
-            <ul id="placesList"></ul>
-            <div id="pagination"></div>
-        </div>
+    
+    <div class="row page_navigator">
+        <button type="button" class="btn btn-primary btn-lg" onclick="location.href='/location'">위치 입력 페이지로 돌아가기</button>
+        <button type="button" class="btn btn-primary btn-lg" onclick="nextPage()">후보 매물 비교해서 보기</button>
     </div>
 
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=c42df0ddd0b0d12d81982f5cccb9e7b3&libraries=services"></script>
+    <script type="text/javascript" src="../static/js/location.js"></script>
     <script type="text/javascript" src="../static/js/residence.js"></script>
 
 </body>

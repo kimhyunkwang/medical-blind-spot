@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>의료 사각지대 해소 웹서비스</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/css/login_register.css">
+    <script
+    src="https://code.jquery.com/jquery-3.6.0.js"
+    integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+     crossorigin="anonymous"></script>
+    <style>
+    @font-face {
+        font-family: 'MaplestoryOTFBold';
+        src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/MaplestoryOTFBold.woff') format('woff');
+        font-weight: normal;
+        font-style: normal;} 
+    </style>
+</head>
+<body>
+    <section class="login-form">
+        <form action = "" method="post">
+            {{ form.csrf_token }}
+            <h1>LOGIN</h1>
+
+            <!-- 이메일 입력 -->
+            <div class="int-area">
+                <input type="text" id="email" name="email" 
+                        value="{{ form.email.data or '' }}" autocomeplete="off">
+                <label for="email">이메일</label>
+            </div>
+            <!-- 필드 에러(폼 검증에 실패한 경우) -->
+            {% if form.email.errors %}
+            <div class="error">
+                {{ form.email.errors.0 }}
+            </div>
+            {% endif %}
+            <!-- flash 에러 -->
+            {% with errors = get_flashed_messages(category_filter=["email_error"]) %}
+            {% if errors %}
+            <div class="error">
+                {{ errors[-1] }}
+            </div>
+            {% endif %}
+            {% endwith %}
+
+            <!-- 비밀번호 입력 -->
+            <div class="int-area">
+                <input type="password" id="password" name="password" 
+                        value="{{ form.password.data or '' }}" autocomplete="off">
+                <label for="pw">비밀번호</label>
+            </div>
+            <!-- 필드 에러(폼 검증에 실패한 경우) -->
+            {% if form.password.errors %}
+            <div class="error">
+                {{ form.password.errors.0 }}
+            </div>
+            {% endif %}
+            <!-- flash 에러 -->
+            {% with errors = get_flashed_messages(category_filter=["pw_error"]) %}
+            {% if errors %}
+            <div class="error">
+                {{ errors[-1] }}
+            </div>
+            {% endif %}
+            {% endwith %}
+
+            <div class="btn-area">
+                <button id="btn" type="submit">로그인</button>
+            </div>
+        </form>
+
+        <div class="caption">
+            <a href="/register">계정이 없으신가요?</a>
+        </div>
+    </section>
+
+    <script>
+        let email = $('#email');
+        let password = $('#password');
+        let btn = $('#btn');
+
+        $(btn).on('click', function() {
+            if($(email).val() == "") {
+                $(email).next('label').addClass('warning');
+                setTimeout(function() {
+                    $('lable').removeClass('warning');
+                },1500);
+
+            }
+             else if ($(password).val() == "") {
+                $(password).next('label').addClass('warning');
+                setTimeout(function() {
+                    $('lable').removeClass('warning');
+                },1500);
+            }
+        });
+    </script>
+
+</body>
+</html>

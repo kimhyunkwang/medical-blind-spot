@@ -1,0 +1,27 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../static/css/compare.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <h1>후보 매물</h1>
+    <div id="comparison">
+        <div id="map" style="width:100%;height:350px;"></div>
+        <div id="houseInfo_1"></div>
+        <div id="houseInfo_2"></div>
+        <div id="houseInfo_3"></div>
+    </div>
+    <div>
+        <button type="button" class="btn btn-primary btn-lg" onclick="saveHouses()">저장하기</button>
+    </div>
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=c42df0ddd0b0d12d81982f5cccb9e7b3&libraries=services"></script>
+    <script type="text/javascript" src="../static/js/compare.js"></script>
+</body>
+</html>
+

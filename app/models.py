@@ -24,3 +24,16 @@ class Residence(db.Model):
     maxJeonsePrice = db.Column(db.Float, nullable=True)
     latitude = db.Column(db.String(20), nullable=True)
     longitude = db.Column(db.String(20), nullable=True)
+
+class User(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    fullname = db.Column(db.String(32), nullable=False)
+    email = db.Column(db.String(64), unique=True, nullable=False)
+    password = db.Column(db.String(128), nullable=False)
+
+class Scrap(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    user = db.relationship('User')
+    residence_id = db.Column(db.Integer, db.ForeignKey('residence.id'), nullable=False)
+    residence = db.relationship('Residence')

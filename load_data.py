@@ -52,14 +52,24 @@ with app.app_context():
                                         "최대전세가":"maxJeonsePrice", "위도":"latitude", "경도":"longitude"})
     
     ## 가격 전처리
-    resid_df["minSalePrice"] = resid_df["minSalePrice"].map(lambda x : x.replace('억','').replace(',', '').replace(' ', '.'), na_action='ignore')
+    resid_df["minSalePrice"] = resid_df["minSalePrice"].map(lambda x : x.replace('억','').replace(',', '').replace(' ', ''), na_action='ignore')
     resid_df["minSalePrice"] = resid_df["minSalePrice"].astype('float')
-    resid_df["maxSalePrice"] = resid_df["maxSalePrice"].map(lambda x : x.replace('억','').replace(',', '').replace(' ', '.'), na_action='ignore')
+    resid_df["maxSalePrice"] = resid_df["maxSalePrice"].map(lambda x : x.replace('억','').replace(',', '').replace(' ', ''), na_action='ignore')
     resid_df["maxSalePrice"] = resid_df["maxSalePrice"].astype('float')
-    resid_df["minJeonsePrice"] = resid_df["minJeonsePrice"].map(lambda x : x.replace('억','').replace(',', '').replace(' ', '.'), na_action='ignore')
+    resid_df["minJeonsePrice"] = resid_df["minJeonsePrice"].map(lambda x : x.replace('억','').replace(',', '').replace(' ', ''), na_action='ignore')
     resid_df["minJeonsePrice"] = resid_df["minJeonsePrice"].astype('float')
-    resid_df["maxJeonsePrice"] = resid_df["maxJeonsePrice"].map(lambda x : x.replace('억','').replace(',', '').replace(' ', '.'), na_action='ignore')
+    resid_df["maxJeonsePrice"] = resid_df["maxJeonsePrice"].map(lambda x : x.replace('억','').replace(',', '').replace(' ', ''), na_action='ignore')
     resid_df["maxJeonsePrice"] = resid_df["maxJeonsePrice"].astype('float')
+
+    def division(x):
+        if x > 1000:
+            return x / 10000
+        return x
+
+    resid_df["minSalePrice"] = resid_df["minSalePrice"].apply(division)
+    resid_df["maxSalePrice"] = resid_df["maxSalePrice"].apply(division)
+    resid_df["minJeonsePrice"] = resid_df["minJeonsePrice"].apply(division)
+    resid_df["maxJeonsePrice"] = resid_df["maxJeonsePrice"].apply(division)
 
     ## null 값 처리
     resid_df.loc[resid_df.minArea.isna(), 'minArea'] = -1
