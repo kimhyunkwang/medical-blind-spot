@@ -15,9 +15,9 @@ def location():
 def residence():
     return render_template("residence.html")
 
-@bp.route("/myPage")
-def myPage():
-    return render_template("myPage.html")
+@bp.route("/mypage")
+def mypage():
+    return render_template("mypage.html")
 
 # 테스트 코드
 @bp.route("/test")

@@ -1,7 +1,12 @@
 //테스트 코드
-var pick_1 = 33016;
+var pick_1 = 35727;
 var pick_2 = 32850;
 var pick_3 = 32855;
+
+var protectorLat = 37.526222;
+var protectorLng = 127.024481;
+var hospitalLat = 37.494739;
+var hospitalLng = 126.911691;
 
 // function getParameterByName(name) {
 //     name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
@@ -31,7 +36,7 @@ var pick_3 = 32855;
 
 $.ajax({
 	type: "GET",
-	url:"/api/myPage",
+	url:"/api/mypage",
     data: {
         pick_1 : pick_1,
         pick_2 : pick_2,
@@ -41,7 +46,10 @@ $.ajax({
 	success : function(result){
         console.log(result);
         var formattedData = formatting(result.result);
-        showHouseInfo(formattedData);
+        var houses = formattingForHouseMarker(formattedData);
+        showHouseInfo(formattedData);       
+        showMarker(positions, positionImageSrc);
+        showMarker(houses, housesImageSrc);
 	},
 	error : function(a, b, c){
 		alert(a + b + c);
@@ -129,30 +137,34 @@ var positions = [
     }
 ];
 
-var houses = [
-    {
-        title: data[0].name,
-        latlng: new kakao.maps.LatLng(data[0].Lat, data[0].Lng)
-    },
-    {
-        title: data[1].name,
-        latlng: new kakao.maps.LatLng(data[1].Lat, data[1].Lng)
-    },
-    {
-        title: data[2].name,
-        latlng: new kakao.maps.LatLng(data[2].Lat, data[2].Lng)
-    }
-];
+function formattingForHouseMarker(data){
+    var houses = [
+        {
+            title: data[0].name,
+            latlng: new kakao.maps.LatLng(data[0].Lat, data[0].Lng)
+        },
+        {
+            title: data[1].name,
+            latlng: new kakao.maps.LatLng(data[1].Lat, data[1].Lng)
+        },
+        {
+            title: data[2].name,
+            latlng: new kakao.maps.LatLng(data[2].Lat, data[2].Lng)
+        }
+    ];
+
+    return houses;
+}
+
 
 // 마커 이미지의 이미지 주소입니다
 var positionImageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png"; 
 var housesImageSrc = 'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_red.png'; 
 bounds = new kakao.maps.LatLngBounds();
 
-showMarker(positions, positionImageSrc);
-showMarker(houses, housesImageSrc);
-
 function showMarker(dataForMarker, markerImageSrc){
+
+    console.log("showmarker");
     var dataImageSize = new kakao.maps.Size(24, 35); 
     var datamarkerImage = new kakao.maps.MarkerImage(markerImageSrc, dataImageSize); 
 
@@ -172,6 +184,7 @@ function showMarker(dataForMarker, markerImageSrc){
 }
 
 function showHouseInfo(houseData){
+    
     houseData.map((data,index)=>{
         //정보 제공
         var houseInfo = document.createElement(`house_${index}`);
@@ -187,4 +200,26 @@ function showHouseInfo(houseData){
 
         document.getElementById("comparison").appendChild(houseInfo);
     })
+}
+
+// 저장하기 => post 요청
+function saveHouses(){
+    $.ajax({
+        type: "POST",
+        url:"/api/mypage",
+        data: {
+            pick_1 : pick_1,
+            pick_2 : pick_2,
+            pick_3 : pick_3
+        },
+        dataType : "json",
+        success : function(result){
+            console.log(result);
+
+        },
+        error : function(a, b, c){
+            alert(a + b + c);
+        }
+    });
+
 }
