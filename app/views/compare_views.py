@@ -1,7 +1,7 @@
 from flask import Blueprint, jsonify, request, session
 from flask_restful import reqparse
 from app import db
-from app.models import Residence, Scrap
+from app.models import Residence, Scrap, User
 import pandas as pd
 import json
 
@@ -13,6 +13,10 @@ def compare():
     parser.add_argument('pick_1', type=int)
     parser.add_argument('pick_2', type=int)
     parser.add_argument('pick_3', type=int)
+    parser.add_argument('protectorLat')
+    parser.add_argument('protectorLng')
+    parser.add_argument('hospitalLat')
+    parser.add_argument('hospitalLng')
     args = parser.parse_args()
 
     pick_id_list = [args['pick_1'], args['pick_2'], args['pick_3']]
@@ -25,6 +29,12 @@ def compare():
             for resid_id in pick_id_list:
                 new_scrap = Scrap(user_id = user_id, residence_id = resid_id)
                 db.session.add(new_scrap)
+            
+            user = User.query.filter(User.id == user_id).first()
+            user.protectorLat = args['protectorLat']
+            user.protectorLng = args['protectorLng']
+            user.hospitalLat = args['hospitalLat']
+            user.hospitalLng = args['hospitalLng']
             db.session.commit()
             return jsonify(_status = "success", result = "success")
 

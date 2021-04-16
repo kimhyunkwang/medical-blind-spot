@@ -17,7 +17,7 @@ def register():
         if user is not None:
             flash( f"{user.email}은 이미 등록된 계정입니다.", category="email_error" )
         else:
-            new_user = User(name = form.name.data, 
+            new_user = User(fullname = form.name.data, 
                             email = form.email.data, 
                             password = generate_password_hash(form.password.data))
             db.session.add(new_user)
@@ -31,14 +31,14 @@ def register():
 def login():
     form = LoginForm()
     
-    if request.method == 'POST' and form.validate_on_submit():  
+    if request.method == 'POST' and form.validate_on_submit():
         user = User.query.filter(User.email == form.email.data).first()
         
         if user is None:
             flash("등록되지 않은 계정입니다.", category="email_error")
         elif not check_password_hash(user.password, form.password.data):
             flash("비밀번호가 올바르지 않습니다.", category="pw_error")
-        else:           
+        else:
             session['user_id'] = user.id
             return render_template('index.html')
 

@@ -1,5 +1,6 @@
 from flask import Blueprint, jsonify, session
-from app.models import Residence, Scrap
+from app import db
+from app.models import Residence, Scrap, User
 import pandas as pd
 import json
 
@@ -10,15 +11,21 @@ def mypage():
     if session.get('user_id') is None:
         return jsonify(_status = "success", result = "error")
 
-    pick_list = Scrap.query.filter(Scrap.user_id == session['user_id']).all()
-
+    user_id = session['user_id']
+    pick_list = Scrap.query.filter(Scrap.user_id == user_id).all()
     pick_resid_id = []
     for pick in pick_list:
         pick_resid_id.append(pick.residence_id)
-    
-    pick_resid_list = Residence.query.filter(Residence.id.in_(pick_resid_id))
 
-    result_df = pd.read_sql(pick_resid_list.statement, pick_resid_list.session.bind)
-    result = json.loads(result_df.to_json(orient='records'))
+    resid_info = Residence.query.filter(Residence.id.in_(pick_resid_id))
+    resid_info_df = pd.read_sql(resid_info.statement, resid_info.session.bind)
+    resid_result = json.loads(resid_info_df.to_json(orient='records'))
 
-    return jsonify(_status = "success", result = result)
+    user = User.query.filter(User.id == user_id).first()
+    user_info_dict = {
+        "protectorLat" : user.protectorLat, "protectorLng" : user.protectorLng, 
+        "hospitalLat" : user.hospitalLat, "hospitalLng" : user.hospitalLng
+    }
+    user_result = [user_info_dict]
+
+    return jsonify(_status = "success", resid_result = resid_result, user_result = user_result)
