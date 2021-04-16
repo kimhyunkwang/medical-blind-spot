@@ -1,0 +1,23 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../static/css/main.css">
+    <title> - 의료 사각지대 해소 웹서비스</title>
+    
+<body>
+    <header>
+        <nav class = "nav_bar">
+        <a href="/"><img src="../static/image/logo.png" alt="logo" width=150px; height=80%;></a>
+        <a class="menu" href="">서비스 소개</a>
+        <a class="menu" href="/location">거주지 찾기</a>
+        <a class="menu" href="/hospital">전국병원지도</a>
+        <a class="menu" href="/mypage">집 바구니</a>
+        <a href="/login"><button class="button">
+            <h4 class="button-text">로그인</h4>
+        </button></a>
+        </nav>
+        {% block content %}
+    </header>
+{% endblock %}
