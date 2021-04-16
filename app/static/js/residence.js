@@ -510,10 +510,19 @@ function search(){
 }
 
 //페이지 넘기기
-function nextPage(){
-    var now_url = new URL(location.href);
-    var base_url = now_url.origin;
+function prevPage(){
 
-    new_url = `/mypage?pick_1=${pickedHouseID[0]}&pick_2=${pickedHouseID[1]}&pick_3=${pickedHouseID[2]}&protectorLat=${protectorLat}&protectorLng=${protectorLng}&hospitalLat=${hospitalLat}&hospitalLng=${hospitalLng}`;
-    window.location.href = base_url+new_url;
+}
+
+function nextPage(){
+    if(pickedHouseID.length != 3){
+        alert("후보 매물을 3개 골라주세요!!")
+    } else {
+        var now_url = new URL(location.href);
+        var base_url = now_url.origin;
+
+        new_url = `/mypage?pick_1=${pickedHouseID[0]}&pick_2=${pickedHouseID[1]}&pick_3=${pickedHouseID[2]}&protectorLat=${protectorLat}&protectorLng=${protectorLng}&hospitalLat=${hospitalLat}&hospitalLng=${hospitalLng}`;
+        window.location.href = base_url+new_url;
+    }
+
 }
