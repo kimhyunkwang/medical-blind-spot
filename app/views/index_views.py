@@ -25,5 +25,4 @@ def compare():
 
 @bp.route("/mypage")
 def mypage():
-
     return render_template("mypage.html")
