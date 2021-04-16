@@ -27,7 +27,7 @@ console.log(hospitalLng);
 
 getHouses();
 function getHouses() {
-    var url = "/residence";
+    var url = "/api/residence";
     fetch(url, {
          protectorLat : protectorLat,
          protectorLng : protectorLng,

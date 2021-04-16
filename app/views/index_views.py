@@ -10,3 +10,11 @@ def home():
 @bp.route("/location")
 def location():
     return render_template("location.html")
+
+@bp.route("/residence")
+def residence():
+    return render_template("residence.html")
+
+@bp.route("/mypage")
+def myPage():
+    return render_template("myPage.html")
