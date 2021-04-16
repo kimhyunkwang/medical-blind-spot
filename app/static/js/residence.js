@@ -1,29 +1,29 @@
 //테스트 코드
-var protectorLat = 37.526222;
-var protectorLng = 127.024481;
-var hospitalLat = 37.494739;
-var hospitalLng = 126.911691;
+// var protectorLat = 37.526222;
+// var protectorLng = 127.024481;
+// var hospitalLat = 37.494739;
+// var hospitalLng = 126.911691;
 
 // new_url = `/residence?protectorLat=${protectorLocation.lat}&protectorLng=${protectorLocation.lng}&hospitalLat=${hospitalLocation.lat}&hospitalLng=${hospitalLocation.lng}`;
     
-// function getParameterByName(name) {
-//     name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
-//     var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
-//       results = regex.exec(location.search);
-//     return results == null
-//       ? ""
-//       : decodeURIComponent(results[1].replace(/\+/g, " "));
-// }
+function getParameterByName(name) {
+    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+      results = regex.exec(location.search);
+    return results == null
+      ? ""
+      : decodeURIComponent(results[1].replace(/\+/g, " "));
+}
 
-// var protectorLat = getParameterByName("protectorLat");
-// var protectorLng = getParameterByName("protectorLng");
-// var hospitalLat = getParameterByName("hospitalLat");
-// var hospitalLng = getParameterByName("hospitalLng");
+var protectorLat = getParameterByName("protectorLat");
+var protectorLng = getParameterByName("protectorLng");
+var hospitalLat = getParameterByName("hospitalLat");
+var hospitalLng = getParameterByName("hospitalLng");
 
-// console.log(protectorLat);
-// console.log(protectorLng);
-// console.log(hospitalLat);
-// console.log(hospitalLng);
+console.log(protectorLat);
+console.log(protectorLng);
+console.log(hospitalLat);
+console.log(hospitalLng);
 
 $.ajax({
 	type: "GET",
@@ -361,8 +361,8 @@ function displayOverlay(place, positionLat, positionLng) {
             '        </div>' + 
             '        <div class="body">' + 
             '            <div class="desc">' + 
-            `               <div class="ellipsis">매매가:${minSalePrice}~${maxSalePrice}</div>`+
-            `               <div class="ellipsis">전세가:${minJeonsePrice}~${maxJeonsePrice}</div>`+
+            `               <div class="ellipsis">매매가(천만원):${minSalePrice}~${maxSalePrice}</div>`+
+            `               <div class="ellipsis">전세가(천만원):${minJeonsePrice}~${maxJeonsePrice}</div>`+
             `               <div class="ellipsis">평수:${minJeonsePrice}~${maxJeonsePrice}</div>`+
             '               <button type="button" class="select" onclick="pickHouse('+'\''+placeID+'\''+','+'\''+title+'\''+')">후보 매물로 지정</button>'+
             '            </div>' + 

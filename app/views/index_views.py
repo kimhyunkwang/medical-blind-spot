@@ -5,7 +5,7 @@ bp = Blueprint('location', __name__, template_folder='templates', static_folder=
 
 @bp.route("/")
 def home():
-    return render_template("index.html")
+    return render_template("location.html")
 
 @bp.route("/intro")
 def intro():
