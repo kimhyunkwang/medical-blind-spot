@@ -36,15 +36,20 @@ var hospitalLng = 126.911691;
 
 $.ajax({
 	type: "GET",
-	url:"/api/mypage",
+	url:"/mypage2",
 	dataType : "json",
 	success : function(result){
         console.log(result);
-        var formattedData = formatting(result.result);
-        var houses = formattingForHouseMarker(formattedData);
-        showHouseInfo(formattedData);       
-        showMarker(positions, positionImageSrc);
-        showMarker(houses, housesImageSrc);
+        if (result.result == "error"){
+            alert("로그인 후 이용해주세요.");
+            location.href = "/login";
+        } else {
+            var formattedData = formatting(result.result);
+            var houses = formattingForHouseMarker(formattedData);
+            showHouseInfo(formattedData);       
+            showMarker(positions, positionImageSrc);
+            showMarker(houses, housesImageSrc);
+        }
 	},
 	error : function(a, b, c){
 		alert(a + b + c);
