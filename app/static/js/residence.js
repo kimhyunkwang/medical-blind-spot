@@ -128,6 +128,7 @@ var salePriceFilter = {minSalePrice: '', maxSalePrice: ''};
 var jeonsePriceFilter = {minJeonsePrice: '', maxJeonsePrice: ''};
 var areaFilter = {minArea:'', maxArea:''};
 
+
 //각 필터링 별 함수
 function handleChangeTypeFilter() {
     var checkApartment = document.getElementById("checkApartment");

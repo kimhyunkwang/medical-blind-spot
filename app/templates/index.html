@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>의료 사각지대 해소 웹서비스</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <link rel="stylesheet" href="../static/css/main.css">
 </head>
 <body>
@@ -12,8 +13,12 @@
             <a class="menu" href="">서비스 소개</a>
             <a class="menu" href="/location">거주지 검색</a>
             <a class="menu" href="/hospital">전국병원지도</a>
-            <a href=""><button class="button">
+            <button class="menu" onclick="showMypage()">마이페이지</button>
+            <a href="/login"><button class="button">
                 <h1 class="button-text">로그인</h1>
+            </button></a>
+            <a href="/logout"><button class="button">
+                <h1 class="button-text">로그아웃</h1>
             </button></a>
             </nav>
         </header>
@@ -255,5 +260,6 @@
             }
             </script>
         </main>
+        <script type="text/javascript" src="../static/js/mypage.js"></script>
     </body>
 </html>
