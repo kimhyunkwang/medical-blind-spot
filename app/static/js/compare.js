@@ -215,12 +215,16 @@ function saveHouses(){
         dataType : "json",
         success : function(result){
             console.log(result);
-            alert("저장이 완료되었습니다.");
+            if(result == "success"){
+                alert("저장이 완료되었습니다.");
+            } else {
+                alert("로그인이 필요한 서비스입니다.");
+                location.href = "/login";
+            }
 
         },
         error : function(a, b, c){
             console.log(a + b + c);
-            location.href = "/login";
         }
     });
 
