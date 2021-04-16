@@ -36,7 +36,7 @@ var hospitalLng = 126.911691;
 
 $.ajax({
 	type: "GET",
-	url:"/api/mypage",
+	url:"/mypage2",
 	dataType : "json",
 	success : function(result){
         console.log(result);
