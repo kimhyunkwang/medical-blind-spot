@@ -399,11 +399,17 @@ function pickHouse(placeID, title){
         if(pickedHouseTitle.length < 3){
             pickedHouseTitle.push(title);
             pickedHouseID.push(placeID);
-    
-            var htmlDiv = document.createElement('div');
-            htmlDiv.id = placeID;
-            htmlDiv.innerHTML = `<p>${title}</p><button onclick="cancelPick(`+'\''+placeID+'\''+','+'\''+title+'\''+`)">취소</button>`;
-            document.getElementById("showPickedHouse").appendChild(htmlDiv);
+
+            var pickedHousediv = document.getElementById("showPickedHouse");
+            var result = '<h1>후보 매물</h1><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
+            for(var i=0; i<pickedHouseTitle.length; i++){
+                var title = pickedHouseTitle[i];
+                var placeID = pickedHouseID[i];
+
+                result += `<span id="${placeID}">${title}<button onclick="cancelPick(`+'\''+placeID+'\''+','+'\''+title+'\''+`)">취소</button></span>&nbsp;`;
+            }
+            pickedHousediv.innerHTML = result;
+
         } else {
             alert("후보 매물은 3개까지만 가능합니다");
         }

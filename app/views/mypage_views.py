@@ -28,4 +28,4 @@ def mypage():
     }
     user_result = [user_info_dict]
 
-    return jsonify(_status = "success", resid_result = resid_result, user_result = user_result)
+    return jsonify(_status = "success", result = { "resid_result" : resid_result, "user_result" : user_result })
