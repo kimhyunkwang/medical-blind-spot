@@ -10,11 +10,12 @@ function showMypage(){
             } else {
                 console.log(result);
                 location.href = "/mypage";
-                var formattedData = formatting(result.result);
-                var houses = formattingForHouseMarker(formattedData);
-                showHouseInfo(formattedData);       
-                showMarker(positions, positionImageSrc);
-                showMarker(houses, housesImageSrc);
+                console.log(result);
+                // var formattedData = formatting(result.result);
+                // var houses = formattingForHouseMarker(formattedData);
+                // showHouseInfo(formattedData);       
+                // showMarker(positions, positionImageSrc);
+                // showMarker(houses, housesImageSrc);
             }
         },
         error : function(a, b, c){
