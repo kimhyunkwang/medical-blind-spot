@@ -1,12 +1,13 @@
-from flask import Blueprint, jsonify
+from flask import Blueprint, jsonify, request, session
 from flask_restful import reqparse
+from app import db
 from app.models import Residence, Scrap
 import pandas as pd
 import json
 
 bp = Blueprint('compare', __name__, template_folder='templates', static_folder='static')
 
-@bp.route('/api/compare', methods=('GET', 'POST'))
+@bp.route('/compare2', methods=('GET', 'POST'))
 def compare():
     parser = reqparse.RequestParser()
     parser.add_argument('pick_1', type=int)
@@ -18,15 +19,14 @@ def compare():
 
     if request.method == 'POST':
         if session.get('user_id') is None:
-            flash("로그인이 필요한 서비스입니다.")
-            return jsonify(_status = "error")
+            return jsonify(_status = "success", result = "error")
         else:
             user_id = session['user_id']
             for resid_id in pick_id_list:
                 new_scrap = Scrap(user_id = user_id, residence_id = resid_id)
                 db.session.add(new_scrap)
             db.session.commit()
-            return jsonify(_status = "success")
+            return jsonify(_status = "success", result = "success")
 
     pick_resid_list = Residence.query.filter(Residence.id.in_(pick_id_list))
 

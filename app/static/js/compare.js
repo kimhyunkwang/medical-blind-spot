@@ -36,7 +36,7 @@ var hospitalLng = 126.911691;
 
 $.ajax({
 	type: "GET",
-	url:"/api/compare",
+	url:"/compare2",
     data: {
         pick_1 : pick_1,
         pick_2 : pick_2,
@@ -206,11 +206,7 @@ function showHouseInfo(houseData){
 function saveHouses(){
     $.ajax({
         type: "POST",
-<<<<<<< HEAD
-        url:"/api/mypage",
-=======
-        url:"/api/compare",
->>>>>>> 455d379dc6954e4f80bbfcb7b6ac3b51a2d81ca5
+        url:"/compare2",
         data: {
             pick_1 : pick_1,
             pick_2 : pick_2,
@@ -219,16 +215,6 @@ function saveHouses(){
         dataType : "json",
         success : function(result){
             console.log(result);
-<<<<<<< HEAD
-
-        },
-        error : function(a, b, c){
-            alert(a + b + c);
-        }
-    });
-
-}
-=======
             alert("저장이 완료되었습니다.");
 
         },
@@ -239,4 +225,3 @@ function saveHouses(){
     });
 
 }
->>>>>>> 455d379dc6954e4f80bbfcb7b6ac3b51a2d81ca5
