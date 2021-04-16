@@ -1,55 +1,28 @@
-//테스트 코드
-var pick_1 = 35727;
-var pick_2 = 32850;
-var pick_3 = 32855;
+function showMypage(){
+    $.ajax({
+        type: "GET",
+        url:"/api/mypage",
+        dataType : "json",
+        success : function(result){
+            if(result == "error"){
+                alert("로그인이 필요한 서비스입니다.");
+                location.href = "/login";
+            } else {
+                console.log(result);
+                location.href = "/mypage";
+                var formattedData = formatting(result.result);
+                var houses = formattingForHouseMarker(formattedData);
+                showHouseInfo(formattedData);       
+                showMarker(positions, positionImageSrc);
+                showMarker(houses, housesImageSrc);
+            }
+        },
+        error : function(a, b, c){
+            alert(a + b + c);
+        }
+    });
+}
 
-var protectorLat = 37.526222;
-var protectorLng = 127.024481;
-var hospitalLat = 37.494739;
-var hospitalLng = 126.911691;
-
-// function getParameterByName(name) {
-//     name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
-//     var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
-//       results = regex.exec(location.search);
-//     return results == null
-//       ? ""
-//       : decodeURIComponent(results[1].replace(/\+/g, " "));
-// }
-
-// var pick_1 = getParameterByName("pick_1");
-// var pick_2 = getParameterByName("pick_2");
-// var pick_3 = getParameterByName("pick_3");
-// var protectorLat = getParameterByName("protectorLat");
-// var protectorLng = getParameterByName("protectorLng");
-// var hospitalLat = getParameterByName("hospitalLat");
-// var hospitalLng = getParameterByName("hospitalLng");
-
-
-// console.log(pick_1);
-// console.log(pick_2);
-// console.log(pick_3);
-// console.log(protectorLat);
-// console.log(protectorLng);
-// console.log(hospitalLat);
-// console.log(hospitalLng);
-
-$.ajax({
-	type: "GET",
-	url:"/api/mypage",
-	dataType : "json",
-	success : function(result){
-        console.log(result);
-        var formattedData = formatting(result.result);
-        var houses = formattingForHouseMarker(formattedData);
-        showHouseInfo(formattedData);       
-        showMarker(positions, positionImageSrc);
-        showMarker(houses, housesImageSrc);
-	},
-	error : function(a, b, c){
-		alert(a + b + c);
-	}
-});
 
 var data = [];
 
