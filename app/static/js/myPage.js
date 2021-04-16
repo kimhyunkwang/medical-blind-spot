@@ -9,13 +9,13 @@ function showMypage(){
                 location.href = "/login";
             } else {
                 console.log(result);
-                location.href = "/mypage";
-                console.log(result);
                 // var formattedData = formatting(result.result);
                 // var houses = formattingForHouseMarker(formattedData);
                 // showHouseInfo(formattedData);       
                 // showMarker(positions, positionImageSrc);
                 // showMarker(houses, housesImageSrc);
+                location.href = "/mypage";
+                result = result;
             }
         },
         error : function(a, b, c){
@@ -24,6 +24,27 @@ function showMypage(){
     });
 }
 
+$.ajax({
+    type: "GET",
+    url:"/api/mypage",
+    dataType : "json",
+    success : function(result){
+        if(result.result == "error"){
+            alert("로그인이 필요한 서비스입니다.");
+            location.href = "/login";
+        } else {
+            console.log(result);
+            var formattedData = formatting(result.result);
+            var houses = formattingForHouseMarker(formattedData);
+            showHouseInfo(formattedData);       
+            showMarker(positions, positionImageSrc);
+            showMarker(houses, housesImageSrc);
+        }
+    },
+    error : function(a, b, c){
+        alert(a + b + c);
+    }
+});
 
 var data = [];
 
@@ -95,16 +116,16 @@ mapOption = {
 var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
 
 // 보호자 위치, 병원 위치 마커 표시
-var positions = [
-    {
-        title: '보호자 위치', 
-        latlng: new kakao.maps.LatLng(protectorLat, protectorLng)
-    },
-    {
-        title: '병원 위치', 
-        latlng: new kakao.maps.LatLng(hospitalLat, hospitalLng)
-    }
-];
+// var positions = [
+//     {
+//         title: '보호자 위치', 
+//         latlng: new kakao.maps.LatLng(protectorLat, protectorLng)
+//     },
+//     {
+//         title: '병원 위치', 
+//         latlng: new kakao.maps.LatLng(hospitalLat, hospitalLng)
+//     }
+// ];
 
 function formattingForHouseMarker(data){
     var houses = [
