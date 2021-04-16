@@ -1,4 +1,4 @@
-from flask import Blueprint, request, session, url_for, render_template, redirect, flash
+from flask import Blueprint, request, session, url_for, render_template, redirect, flash, g
 from app import db
 from werkzeug.security import check_password_hash
 from werkzeug.security import generate_password_hash
@@ -31,21 +31,32 @@ def register():
 def login():
     form = LoginForm()
     
-    if request.method == 'POST' and form.validate_on_submit():  
+    if request.method == 'POST' and form.validate_on_submit():
         user = User.query.filter(User.email == form.email.data).first()
         
         if user is None:
             flash("등록되지 않은 계정입니다.", category="email_error")
         elif not check_password_hash(user.password, form.password.data):
             flash("비밀번호가 올바르지 않습니다.", category="pw_error")
-        else:           
+        else:
+            session.clear()
             session['user_id'] = user.id
-            return render_template('index.html')
+            return redirect(url_for('location.home'))
 
     return render_template('login.html', form=form)
 
 
 @bp.route('/logout')
 def logout():
-    session.pop('user_id', None)
-    return render_template('index.html')
+    session.clear()
+    # session.pop('user_id', None)
+    return redirect(url_for('location.home'))
+
+
+@bp.before_app_request
+def load_logged_n_user():
+    user_id = session.get('user_id')
+    if user_id is None:
+        g.user = None
+    else:
+        g.user = User.query.get(user_id)

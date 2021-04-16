@@ -5,88 +5,80 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
     <title>의료 사각지대 해소 웹서비스</title>
-    <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=vf26z2umlb"></script>
+    <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=g6u8g3vqn0"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
     <link rel="stylesheet" href="../static/css/hospital.css">
-    <style type = "text/css">
-        @font-face {
-        font-family: 'MaplestoryOTFBold';
-        src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/MaplestoryOTFBold.woff') format('woff');
-        font-weight: normal;
-        font-style: normal;
-        }
-   </style>
 </head>
 <body>
-    <header>
-        <nav class = "nav_bar">
-        <a href="/"><img src="../static/image/logo.png" alt="logo" width=150px; height=80%;></a>
-        <a class="menu" href="">서비스 소개</a>
-        <a class="menu" href="../location">거주지 검색</a>
-        <a class="menu" href="../hospital">전국병원지도</a>
-        <a href="../login"><button class="button">
-            <h1 class="button-text">로그인</h1>
-        </button></a>
-        </nav>
-    </header>
+    {% extends "nav.html" %}
+    {% block content %}
     <div id= "filtering_box">
-        <form action = "" method = "post">
-            <section id = "region_select">
+        <input type="checkbox" id="menuicon" checked="checked">
+        <label for="menuicon">
+	        <span></span>
+	        <span></span>
+	        <span></span>
+        </label>
+        <div class="sidebar">
+	        <form action = "" method = "post">
+		        <section class="option_box">
                 <h3>지역 선택</h3>
-                <select name="region1" class = "option_box">
-                    <option value="1" id="city1">서울특별시</option>
-                    <option value="2" id="city2">부산광역시</option>
-                    <option value="3" id="city3">대구광역시</option>
-                    <option value="4" id="city4">인천광역시</option>
-                    <option value="5" id="city5">광주광역시</option>
-                    <option value="6" id="city6">대전광역시</option>
-                    <option value="7" id="city7">울산광역시</option>
-                    <option value="8" id="city8">세종특별자치시</option>
-                    <option value="9" id="city9">경기도</option>
-                    <option value="10" id="city10">강원도</option>
-                    <option value="11" id="city11">충청북도</option>
-                    <option value="12" id="city12">충청남도</option>
-                    <option value="13" id="city13">전라북도</option>
-                    <option value="14" id="city14">전라남도</option>
-                    <option value="15" id="city15">경상북도</option>
-                    <option value="16" id="city16">경상남도</option>
-                    <option value="17" id="city17">제주특별자치도</option>
+                <select name="region1">
+                    <option value="1">서울특별시</option>
+                    <option value="2">부산광역시</option>
+                    <option value="3">대구광역시</option>
+                    <option value="4">인천광역시</option>
+                    <option value="5">광주광역시</option>
+                    <option value="6">대전광역시</option>
+                    <option value="7">울산광역시</option>
+                    <option value="8">세종특별자치시</option>
+                    <option value="9">경기도</option>
+                    <option value="10">강원도</option>
+                    <option value="11">충청북도</option>
+                    <option value="12">충청남도</option>
+                    <option value="13">전라북도</option>
+                    <option value="14">전라남도</option>
+                    <option value="15">경상북도</option>
+                    <option value="16">경상남도</option>
+                    <option value="17">제주특별자치도</option>
                 </select>
-            </section>
-    
-            <section class = "hospital_select">
-            <h3>병원 분류 선택</h3>
-            <input type="checkbox" name="hosp_div" value="div1" id="checkbox1"> 한의원
-            <input type="checkbox" name="hosp_div" value="div2" id="checkbox2"> 한방병원
-            <input type="checkbox" name="hosp_div" value="div3" id="checkbox3"> 치과의원
-            <input type="checkbox" name="hosp_div" value="div4" id="checkbox4"> 치과병원
-            <input type="checkbox" name="hosp_div" value="div5" id="checkbox5"> 종합병원
-            <input type="checkbox" name="hosp_div" value="div6" id="checkbox6"> 요양병원
-            <input type="checkbox" name="hosp_div" value="div7" id="checkbox7"> 병원
-            <input type="checkbox" name="hosp_div" value="div8" id="checkbox8"> 의원
-            <input type="checkbox" name="hosp_div" value="div9" id="checkbox9"> 보건소
-            <input type="checkbox" name="hosp_div" value="div10" id="checkbox10"> 기타(구급차)
-            <input type="checkbox" name="hosp_div" value="div11" id="checkbox11"> 기타
-    
-            <input type="submit" id="search" value="검색" onclick="save()">
-            </section>
+		        </section>
+        
+		        <section class="check_box">
+                    <h3>병원 분류 선택</h3>
+		            <div id= "checkbox_label">
+                    <input type="checkbox" name="hosp_div" value="div1" id="box_1" class="box"> 한의원
+                    <input type="checkbox" name="hosp_div" value="div2" id="box_2" class="box"> 한방병원<br>
+                    <input type="checkbox" name="hosp_div" value="div3" id="box_3" class="box"> 치과의원
+                    <input type="checkbox" name="hosp_div" value="div4" id="box_4" class="box"> 치과병원<br>
+                    <input type="checkbox" name="hosp_div" value="div5" id="box_5" class="box"> 종합병원
+                    <input type="checkbox" name="hosp_div" value="div6" id="box_6" class="box"> 요양병원<br>
+                    <input type="checkbox" name="hosp_div" value="div7" id="box_7" class="box"> 병원
+                    <input type="checkbox" name="hosp_div" value="div8" id="box_8" class="box"> 의원
+                    <input type="checkbox" name="hosp_div" value="div9" id="box_9" class="box"> 보건소<br>
+                    <input type="checkbox" name="hosp_div" value="div10" id="box_10" class="box"> 기타(구급차)
+                    <input type="checkbox" name="hosp_div" value="div11" id="box_11" class="box"> 기타
+		            </div>
+                </section>
+                    <script text="javascript" src="../static/js/checkbox.js"></script>
+                    <input type="submit" id="search" value="검색" style="font-family:MaplestoryOTFBold;" onclick=save();>
+                    </div>
+            </form>
         </div>
-        </form>
-    
-    <div id="map"></div>
+
+    <div id="map" style="width:99%;height:100vh;"></div>
     
     <span id="hospital"></span>
     <script type="text/javascript" src = "../static/js/MarkerClustering.js"></script>
-    <script type='text/javascript' src = "../static/js/checkbox.js"></script>
     <script type='text/javascript'>
         let mapOptions = {
             center: new naver.maps.LatLng(37.3595704, 127.105399),
-            zoom: 6,
+            zoom: 8,
             zoomControl: true,
-            zoomCOntrolOptions: {
-                position: naver.maps.Position.TOP_LEFT,
+            zoomControlOptions: {
                 style: naver.maps.ZoomControlStyle.SMALL,
-            }
+                position: naver.maps.Position.TOP_RIGHT
+        },
     
         };
     
@@ -254,6 +246,6 @@
         };    
         
     </script>
-    
+    {% endblock %}
 </body>
 </html>

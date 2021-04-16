@@ -5,7 +5,11 @@ bp = Blueprint('location', __name__, template_folder='templates', static_folder=
 
 @bp.route("/")
 def home():
-    return render_template("index.html")
+    return render_template("location.html")
+
+@bp.route("/intro")
+def intro():
+    return render_template("intro.html")
 
 @bp.route("/location")
 def location():
@@ -22,9 +26,3 @@ def compare():
 @bp.route("/mypage")
 def mypage():
     return render_template("mypage.html")
-
-# 테스트 코드
-@bp.route("/test")
-def test():
-    return render_template("test.html")
-    

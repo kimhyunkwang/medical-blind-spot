@@ -1,6 +1,14 @@
+@font-face {
+    font-family: 'MaplestoryOTFBold';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/MaplestoryOTFBold.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
 * {
     margin: 0;
-    padding: 20;
+    padding: 0;
+    text-decoration: none;
 }
 
 body {
@@ -17,7 +25,7 @@ body {
 
 .menu {
     font-family: MaplestoryOTFBold;
-    font-size:1.4rem;
+    font-size: 18px;
     color: white;
     text-decoration: none;
     position: relative;
@@ -40,6 +48,13 @@ body {
 
 .menu:hover::after {
     width: 100%;
+}
+
+button.menu {
+    background-color: #9980FA;
+    width:110px;
+    border: 1px;
+    border-radius: 5px;
 }
 
 .button {

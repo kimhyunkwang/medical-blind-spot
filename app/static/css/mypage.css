@@ -5,136 +5,54 @@
     font-style: normal;
 }
 
-.content {
-    padding: 100px;
-}
-.page_navigator {
-    padding: 100px;
+* {
+    font-family: "MaplestoryOTFBold";
 }
 
-div[class="row_content"] h1{
-    font-family: 'MaplestoryOTFBold';
-    color: white;
-    background-color:#222;
-    margin:0px;
-    padding:10px;
-    text-align:left;
-    display:inline-block;
-}
-
-div[id="showPickedHouse"] {
-    background-color:#222;
-    color:white;
-    text-align:left;
-    font-family: 'MaplestoryOTFBold';
-}
-
-div[class="filtering_box"] {
-    font-family: 'MaplestoryOTFBold';
-    float:left;
-    width:30%;
-    height:100vh;
-    z-index:5;
-    text-align: center;
+div[id="title_div"] h1{
     background-color: #222;
+    font-size: 30px;
+    text-align: center;
+    padding: 10px;
+    color: #ffeaa7;
+    z-index:10;
 }
 
+input[id="menuicon"] {display:none;}
+input[id="menuicon"] + label {right:0;z-index:20;padding:5px;margin:15px;display:block;width:30px;height:20px;position:absolute;cursor:pointer;}
+input[id="menuicon"] + label span {display:block;position:absolute;width:100%;height:5px;border-radius:30px;background:#000;transition:all .35s;}
+input[id="menuicon"] + label span:nth-child(1) {top:0;}
+input[id="menuicon"] + label span:nth-child(2) {top:50%;transform:translateY(-50%);} /* ����ϰ� ����� �� �ִ� style top:calc(50% - 2.5px); margin-top:-2.5px;*/
+input[id="menuicon"] + label span:nth-child(3) {bottom:0;}
+input[id="menuicon"]:checked + label {z-index:30;}
+input[id="menuicon"]:checked + label span {background: #8660ee;}
+input[id="menuicon"]:checked + label span:nth-child(1) {top:50%;transform:translateY(-50%) rotate(45deg);}
+input[id="menuicon"]:checked + label span:nth-child(2) {opacity:0;}
+input[id="menuicon"]:checked + label span:nth-child(3) {bottom:50%;transform:translateY(50%) rotate(-45deg);}
+div[class="sidebar"] {width:300px;height:100%;background:#222;position:absolute;top:60;right:-300px;z-index:5;transition:all .35s; font-family:MaplestoryOTFBold; text-align: center;}
+input[id="menuicon"]:checked + label + div {right:0;}
 
-div[class="map"] {
-    float:left;
-    width: 70%;
-    z-index: 6;
+
+button[class="btn-save"] {
+	background:linear-gradient(to bottom, hsl(273, 93%, 83%) 5%);
+	background-color:#dfbdfa;
+	border-radius:22px;
+	display:inline-block;
+    color:#ffffff;
+	font-size:18px;
+	padding:18px 40px;
+	text-decoration:none;
+    margin:40px;
 }
 
-div[id="condition_text"] {
-    font-size:18px;
-    padding:10px;
-    padding-top:20px;
-    padding-bottom:20px;
-    color: rgb(178, 130, 255);
-    
-}
-
-div[id="house_type"] {
-    font-size:17px;
-    padding: 15px;
-    color: rgb(255, 215, 85);
-}
-
-div[id="house_checkbox"] {
-    padding:10px;
-    display:inline-block;
-    color: white;
-}
-
-div[id="deal_type"] {
-    font-size:17px;
-    padding: 15px;
-    color: rgb(255, 215, 85);
-}
-
-div[id="house_checkbox"] {
-    padding:10px;
-    display:inline-block;
-    color: white;
-}
-
-div[id="deal_checkbox"] {
-    padding:10px;
-    display:inline-block;
-    color: white;
-}
-
-div[id="salePriceDiv"]  {
-    padding:5px;
+div[id="comparison"] {
+    padding-top:50px;
     color:white;
-    text-align:center;
 }
 
-div[id="jeonsePriceDiv"] {
-    padding:5px;
-    color: white;
-    text-align:center;
+div[id="houseInfo_1"] {
+    padding-bottom:50px;
 }
-
-div[class="money_type"] {
-    padding:5px;
-    color: rgb(255, 215, 85);
-    text-align:center;
-}
-
-div[id="space_input"] {
-    padding:15px;
-    color: rgb(255, 215, 85);
-    text-align:center;
-}
-
-div[id="spaceInputDiv"] {
-    padding:5px;
-    color: white;
-    text-align:center;
-}
-
-button {
-    padding:7px;
-    font-family:MapleStoryOTFBold;
-    background-color:#6c5ce7;
-    border-radius: 5px;
-    border: 1px solid #6c5ce7;
-    color: white;
-}
-
-div[id="search-btn"] {
-    padding:10px;
-}
-
-div[id="page-btn"] {
-    padding:15px;
-}
-
-button[class="btn_pro"] {float:right;width:20%;}
-button[class="btn_pre"] {float:left;width:20%;}
-
 
 
 .map_wrap, .map_wrap * {margin:0;padding:0;font-family:'Malgun Gothic',dotum,'돋움',sans-serif;font-size:12px;}

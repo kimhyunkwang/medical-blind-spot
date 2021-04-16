@@ -30,6 +30,10 @@ class User(db.Model):
     fullname = db.Column(db.String(32), nullable=False)
     email = db.Column(db.String(64), unique=True, nullable=False)
     password = db.Column(db.String(128), nullable=False)
+    protectorLat = db.Column(db.String(20), nullable=True)
+    protectorLng = db.Column(db.String(20), nullable=True)
+    hospitalLat = db.Column(db.String(20), nullable=True)
+    hospitalLng = db.Column(db.String(20), nullable=True)
 
 class Scrap(db.Model):
     id = db.Column(db.Integer, primary_key=True)
