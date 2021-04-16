@@ -50,6 +50,10 @@ body {
     width: 100%;
 }
 
+button.menu {
+    background-color: #9980FA
+}
+
 .button {
     font-family: MaplestoryOTFBold;
     position: relative;
