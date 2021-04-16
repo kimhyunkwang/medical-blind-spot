@@ -14,3 +14,17 @@ def location():
 @bp.route("/residence")
 def residence():
     return render_template("residence.html")
+
+@bp.route("/compare")
+def compare():
+    return render_template("compare.html")
+
+@bp.route("/mypage")
+def mypage():
+    return render_template("mypage.html")
+
+# 테스트 코드
+@bp.route("/test")
+def test():
+    return render_template("test.html")
+    

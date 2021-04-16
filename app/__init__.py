@@ -16,9 +16,11 @@ def create_app():
     migrate.init_app(app, db)
 
     # 블루프린트
-    from .views import index_views, residence_views, hospital_views, auth_views
+    from .views import index_views, residence_views, hospital_views, auth_views, compare_views
     app.register_blueprint(index_views.bp)
     app.register_blueprint(residence_views.bp)
+    app.register_blueprint(compare_views.bp)
+    # app.register_blueprint(mypage_views.bp)
     app.register_blueprint(hospital_views.bp)
     app.register_blueprint(auth_views.bp)
 
