@@ -1,108 +1,131 @@
-* {
-    margin: 0;
-    padding: 20;
+@font-face {
+	font-family: 'DungGeunMo';
+	src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/DungGeunMo.woff') format('woff');
+	font-weight: normal;
+	font-style: normal;
 }
 
-body {
-    background: #fff;
-    padding: 60px;
+@font-face {
+	font-family: 'MaplestoryOTFBold';
+	src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/MaplestoryOTFBold.woff') format('woff');
+	font-weight: normal;
+	font-style: normal;}
+
+
+.title_text {
+	background-color:#222;
+	padding: 20px;
 }
 
-header {
-    position: fixed;
-    top: 0;
-    /* width: 100% */
-    left: 0;
-    right: 0; 
-    /* 생략 */
+#title-text {
+	text-align: center;
+	background-color: #222;
+	font-family:'DungGeunMo';
+	font-size: 25px;
+	text-transform: capitalize;
+	white-space: nowrap;
+	color: transparent;
+	padding-top:10px;
+	padding-bottom:15px;
+}	
+
+#title-text::before {
+	content: "보호자의 위치와 자주 가는 병원의 위치를 검색을 통해 지정해주세요.";
+	position: absolute;
+	color: rgb(178, 130, 255);
+	overflow: hidden;
+	border-right: 3px solid rgb(178, 130, 255);
+	animation: typing 8s steps(40);
 }
 
-.nav_bar {
-    background: rgb(56, 59, 56);
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    height: 60px;
+@keyframes typing {
+	0% {
+		width: 0%
+	}
+	50% {
+		width: 69.5%
+	}
+	100% {
+		width: 0%
+	}
 }
 
-.menu {
-    font-size:20px;
+.locations {
+	font-family:'MaplestoryOTFBold';
+	padding-bottom: 20px;
+	color: white;
+	background-color: #222;
+	margin:0;
+	padding:0;
+	text-align: center;
+
+}
+
+div[class="row_page_navigator"] {
+	padding:5px;
+}
+
+.btn_next {
+	background:linear-gradient(to bottom, hsl(273, 93%, 83%) 5%);
+	background-color:#dfbdfa;
+	border-radius:15px;
+	display:inline-block;
+  	color:#ffffff;
+	font-size:20px;
+	padding:10px 30px;
+	text-decoration:none;
+	font-family: 'MaplestoryOTFBold';
+}
+
+.btn_next{
+	margin: 0 auto;
+	display: flex;
+}
+
+#pro_location {
+	font-size:22px;
+}
+
+#hos_location {
+	font-size:22px;
+}
+
+#showProtectorLocation {
+	color: rgb(207, 180, 252);
+	padding:10px;
+}
+
+#showHospitalLocation {
+	color: rgb(207, 180, 252);
+	padding:10px;
+}
+
+button.select{
+    padding:4px;
+    font-family:MapleStoryOTFBold;
+    background-color:#6c5ce7;
+    border-radius: 6px;
+    border: 1px solid #6c5ce7;
     color: white;
-    text-decoration: none;
-    position: relative;
-    padding: 6px 12px;
-
 }
 
-
-.menu::after {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 0;
-    height: 4px;
-    background: #f1c40f;
-    transition: all .5s ease-out;
+div[class="wrap"] {
+	text-align:center;
 }
 
-.menu:hover::after {
-    width: 100%;
+button[id="searchButton"] {
+    background-color: #6c5ce7;
+	font-family:MapleStoryOTFBold;
+	padding:4px;
+	border-radius:6px;
+	color:white;
 }
 
-.content {
-  padding: 100px;
-}
-.page_navigator {
-  padding: 100px;
-}
-
-.button {
-    font-family: MaplestoryOTFBold;
-    position: relative;
-    width: 100px; 
-    height:40px;
-    border: 2px solid #f1c40f;
-    border-radius: 10px;
-    background-color: #fff;
-    cursor: pointer;
-    overflow: hidden;
-  }
-  
-  .button::after {
-    content: "";
-    position: absolute;
-    top:0;
-    left: 0;
-    background-color:  #f1c40f;
-    width: 100%;
-    height: 100%;
-    z-index: 1;
-    transform: scale(0,1);
-    transform-origin: 50% 0%;
-    transition: transform 0.35s;
-  }
-  
-  .button-text{
-    position:relative;
-    z-index:2;
-    color:#f1c40f;
-    transition: 0.35s;
-  }
-  
-  .button:hover::after {
-    transform: scale(1,1);
-  }
-  
-  .button:hover .button-text {
-    color:#fff; }
-  
 
 .map_wrap, .map_wrap * {margin:0;padding:0;font-family:'Malgun Gothic',dotum,'돋움',sans-serif;font-size:12px;}
 .map_wrap a, .map_wrap a:hover, .map_wrap a:active{color:#000;text-decoration: none;}
-.map_wrap {position:relative;width:100%;height:100%;}
-#menu_wrap {position:absolute;top:0;left:0;bottom:0;width:250px;margin:10px 0 30px 10px;padding:5px;overflow-y:auto;background:rgba(255, 255, 255, 0.7);z-index: 1;font-size:12px;border-radius: 10px;}
+.map_wrap {width:100%;height:100%;}
+#menu_wrap {top:0;left:0;bottom:0;width:250px;margin:10px 0 30px 10px;padding:5px;overflow-y:auto;background:rgba(255, 255, 255, 0.7);z-index: 5;font-size:12px;border-radius: 10px;}
 .bg_white {background:#fff;}
 #menu_wrap hr {display: block; height: 1px;border: 0; border-top: 2px solid #5F5F5F;margin:3px 0;}
 #menu_wrap .option{text-align: center;}

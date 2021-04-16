@@ -1,9 +1,140 @@
+@font-face {
+    font-family: 'MaplestoryOTFBold';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/MaplestoryOTFBold.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
 .content {
     padding: 100px;
 }
 .page_navigator {
     padding: 100px;
 }
+
+div[class="row_content"] h1{
+    font-family: 'MaplestoryOTFBold';
+    color: white;
+    background-color:#222;
+    margin:0px;
+    padding:10px;
+    text-align:left;
+    display:inline-block;
+}
+
+div[id="showPickedHouse"] {
+    background-color:#222;
+    color:white;
+    text-align:left;
+    font-family: 'MaplestoryOTFBold';
+}
+
+div[class="filtering_box"] {
+    font-family: 'MaplestoryOTFBold';
+    float:left;
+    width:30%;
+    height:100vh;
+    z-index:5;
+    text-align: center;
+    background-color: #222;
+}
+
+
+div[class="map"] {
+    float:left;
+    width: 70%;
+    z-index: 6;
+}
+
+div[id="condition_text"] {
+    font-size:18px;
+    padding:10px;
+    padding-top:20px;
+    padding-bottom:20px;
+    color: rgb(178, 130, 255);
+    
+}
+
+div[id="house_type"] {
+    font-size:17px;
+    padding: 15px;
+    color: rgb(255, 215, 85);
+}
+
+div[id="house_checkbox"] {
+    padding:10px;
+    display:inline-block;
+    color: white;
+}
+
+div[id="deal_type"] {
+    font-size:17px;
+    padding: 15px;
+    color: rgb(255, 215, 85);
+}
+
+div[id="house_checkbox"] {
+    padding:10px;
+    display:inline-block;
+    color: white;
+}
+
+div[id="deal_checkbox"] {
+    padding:10px;
+    display:inline-block;
+    color: white;
+}
+
+div[id="salePriceDiv"]  {
+    padding:5px;
+    color:white;
+    text-align:center;
+}
+
+div[id="jeonsePriceDiv"] {
+    padding:5px;
+    color: white;
+    text-align:center;
+}
+
+div[class="money_type"] {
+    padding:5px;
+    color: rgb(255, 215, 85);
+    text-align:center;
+}
+
+div[id="space_input"] {
+    padding:15px;
+    color: rgb(255, 215, 85);
+    text-align:center;
+}
+
+div[id="spaceInputDiv"] {
+    padding:5px;
+    color: white;
+    text-align:center;
+}
+
+button {
+    padding:7px;
+    font-family:MapleStoryOTFBold;
+    background-color:#6c5ce7;
+    border-radius: 5px;
+    border: 1px solid #6c5ce7;
+    color: white;
+}
+
+div[id="search-btn"] {
+    padding:10px;
+}
+
+div[id="page-btn"] {
+    padding:15px;
+}
+
+button[class="btn_pro"] {float:right;width:20%;}
+button[class="btn_pre"] {float:left;width:20%;}
+
 
 
 .map_wrap, .map_wrap * {margin:0;padding:0;font-family:'Malgun Gothic',dotum,'돋움',sans-serif;font-size:12px;}
