@@ -51,7 +51,10 @@ body {
 }
 
 button.menu {
-    background-color: #9980FA
+    background-color: #9980FA;
+    width:110px;
+    border: 1px;
+    border-radius: 5px;
 }
 
 .button {

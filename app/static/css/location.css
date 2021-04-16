@@ -43,7 +43,7 @@
 		width: 0%
 	}
 	50% {
-		width: 100%
+		width: 69.5%
 	}
 	100% {
 		width: 0%
@@ -61,14 +61,18 @@
 
 }
 
+div[class="row_page_navigator"] {
+	padding:5px;
+}
+
 .btn_next {
 	background:linear-gradient(to bottom, hsl(273, 93%, 83%) 5%);
 	background-color:#dfbdfa;
-	border-radius:22px;
+	border-radius:15px;
 	display:inline-block;
   	color:#ffffff;
 	font-size:20px;
-	padding:18px 30px;
+	padding:10px 30px;
 	text-decoration:none;
 	font-family: 'MaplestoryOTFBold';
 }

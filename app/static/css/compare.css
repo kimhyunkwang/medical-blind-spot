@@ -1,0 +1,49 @@
+@font-face {
+    font-family: 'MaplestoryOTFBold';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/MaplestoryOTFBold.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+* {
+    font-family: "MaplestoryOTFBold";
+}
+
+div[id="title_div"] h1{
+    background-color: #222;
+    font-size: 30px;
+    text-align: center;
+    padding: 10px;
+    color: #ffeaa7;
+}
+
+div[id='comparison'] {
+    background-color: #ffeaa7;
+    float:left;
+    z-index:10;
+}
+
+
+div[id="houseInfo_1"]{
+    width:33.3%;
+    float:left;
+    background-color:springgreen;
+}
+
+div[id="houseInfo_2"] {
+    width:33.3%;
+    float:left;
+    background-color:slateblue;
+}
+
+div[id="houseInfo_3"] {
+    width:33.3%;
+    float:left;
+    background-color:turquoise;
+}
+
+div[id='map'] {
+    float:left;
+    width:60%;
+    z-index:1;
+}
