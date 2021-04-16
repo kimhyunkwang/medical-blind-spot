@@ -346,12 +346,12 @@ function removeAllChildNods(el) {
 
 //
 function nextPage() {
-    var now_url = new URL(location.href);
-    var base_url = now_url.origin;
-    console.log(now_url);
-    console.log(base_url);
-
-    new_url = `/residence?protectorLat=${protectorLocation.lat}&protectorLng=${protectorLocation.lng}&hospitalLat=${hospitalLocation.lat}&hospitalLng=${hospitalLocation.lng}`;
-    console.log(new_url);
-    window.location.href = base_url+new_url;
+    if(protectorLocation && hospitalLocation){
+        var now_url = new URL(location.href);
+        var base_url = now_url.origin;
+        new_url = `/residence?protectorLat=${protectorLocation.lat}&protectorLng=${protectorLocation.lng}&hospitalLat=${hospitalLocation.lat}&hospitalLng=${hospitalLocation.lng}`;
+        window.location.href = base_url+new_url;
+    } else {
+        alert("보호자 위치와 병원 위치를 모두 지정해주세요!!")
+    }
 }

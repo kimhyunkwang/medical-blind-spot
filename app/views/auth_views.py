@@ -17,7 +17,7 @@ def register():
         if user is not None:
             flash( f"{user.email}은 이미 등록된 계정입니다.", category="email_error" )
         else:
-            new_user = User(name = form.name.data, 
+            new_user = User(fullname = form.name.data, 
                             email = form.email.data, 
                             password = generate_password_hash(form.password.data))
             db.session.add(new_user)

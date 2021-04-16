@@ -128,6 +128,7 @@ var salePriceFilter = {minSalePrice: '', maxSalePrice: ''};
 var jeonsePriceFilter = {minJeonsePrice: '', maxJeonsePrice: ''};
 var areaFilter = {minArea:'', maxArea:''};
 
+
 //각 필터링 별 함수
 function handleChangeTypeFilter() {
     var checkApartment = document.getElementById("checkApartment");
@@ -390,17 +391,25 @@ var pickedHouseTitle = [];
 var pickedHouseID = [];
 
 function pickHouse(placeID, title){
-    if(pickedHouseTitle.length < 3){
-        pickedHouseTitle.push(title);
-        pickedHouseID.push(placeID);
-
-        var htmlDiv = document.createElement('div');
-        htmlDiv.id = placeID;
-        htmlDiv.innerHTML = `<p>${title}</p><button onclick="cancelPick(`+'\''+placeID+'\''+','+'\''+title+'\''+`)">취소</button>`;
-        document.getElementById("showPickedHouse").appendChild(htmlDiv);
+    console.log("pickedHouseTitle:", pickedHouseTitle);
+    console.log("pickedHouseID:", pickedHouseID);
+    if (pickedHouseTitle.includes(title) == true){
+        alert("이미 등록된 매물입니다");
     } else {
-        alert("후보 매물은 3개까지만 가능합니다");
+        if(pickedHouseTitle.length < 3){
+            pickedHouseTitle.push(title);
+            pickedHouseID.push(placeID);
+    
+            var htmlDiv = document.createElement('div');
+            htmlDiv.id = placeID;
+            htmlDiv.innerHTML = `<p>${title}</p><button onclick="cancelPick(`+'\''+placeID+'\''+','+'\''+title+'\''+`)">취소</button>`;
+            document.getElementById("showPickedHouse").appendChild(htmlDiv);
+        } else {
+            alert("후보 매물은 3개까지만 가능합니다");
+        }
     }
+
+    
 }
 
 //후보 매물 취소
@@ -502,10 +511,19 @@ function search(){
 }
 
 //페이지 넘기기
-function nextPage(){
-    var now_url = new URL(location.href);
-    var base_url = now_url.origin;
+function prevPage(){
 
-    new_url = `/myPage?pick_1=${pickedHouseID[0]}&pick_2=${pickedHouseID[1]}&pick_3=${pickedHouseID[2]}&protectorLat=${protectorLat}&protectorLng=${protectorLng}&hospitalLat=${hospitalLat}&hospitalLng=${hospitalLng}`;
-    window.location.href = base_url+new_url;
+}
+
+function nextPage(){
+    if(pickedHouseID.length != 3){
+        alert("후보 매물을 3개 골라주세요!!")
+    } else {
+        var now_url = new URL(location.href);
+        var base_url = now_url.origin;
+
+        new_url = `/compare?pick_1=${pickedHouseID[0]}&pick_2=${pickedHouseID[1]}&pick_3=${pickedHouseID[2]}&protectorLat=${protectorLat}&protectorLng=${protectorLng}&hospitalLat=${hospitalLat}&hospitalLng=${hospitalLng}`;
+        window.location.href = base_url+new_url;
+    }
+
 }
