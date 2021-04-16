@@ -6,7 +6,7 @@ import json
 
 bp = Blueprint('mypage', __name__, template_folder='templates', static_folder='static')
 
-@bp.route('/mypage2')
+@bp.route('/api/mypage')
 def mypage():
     if session.get('user_id') is None:
         return jsonify(_status = "success", result = "error")

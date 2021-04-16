@@ -7,7 +7,7 @@ import json
 
 bp = Blueprint('compare', __name__, template_folder='templates', static_folder='static')
 
-@bp.route('/compare2', methods=('GET', 'POST'))
+@bp.route('/api/compare', methods=('GET', 'POST'))
 def compare():
     parser = reqparse.RequestParser()
     parser.add_argument('pick_1', type=int)

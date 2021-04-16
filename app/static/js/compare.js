@@ -36,7 +36,7 @@ var hospitalLng = 126.911691;
 
 $.ajax({
 	type: "GET",
-	url:"/compare2",
+	url:"/api/compare",
     data: {
         pick_1 : pick_1,
         pick_2 : pick_2,
@@ -206,21 +206,29 @@ function showHouseInfo(houseData){
 function saveHouses(){
     $.ajax({
         type: "POST",
-        url:"/compare2",
+        url:"/api/compare",
         data: {
             pick_1 : pick_1,
             pick_2 : pick_2,
-            pick_3 : pick_3
+            pick_3 : pick_3,
+            protectorLat : protectorLat,
+            protectorLng : protectorLng,
+            hospitalLat : hospitalLat,
+            hospitalLng : hospitalLng
         },
         dataType : "json",
         success : function(result){
-            console.log(result);
-            alert("저장이 완료되었습니다.");
+            console.log(result.result);
+            if(result.result == "success"){
+                alert("저장이 완료되었습니다.");
+            } else {
+                alert("로그인이 필요한 서비스입니다.");
+                location.href = "/login";
+            }
 
         },
         error : function(a, b, c){
             console.log(a + b + c);
-            location.href = "/login";
         }
     });
 

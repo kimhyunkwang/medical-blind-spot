@@ -27,7 +27,7 @@ var hospitalLng = 126.911691;
 
 $.ajax({
 	type: "GET",
-	url:"/residence2",
+	url:"/api/residence",
     data: {
         protectorLat : protectorLat,
         protectorLng : protectorLng,

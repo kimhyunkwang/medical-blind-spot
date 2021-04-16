@@ -1,10 +1,13 @@
+
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
     <title>의료 사각지대 해소 웹서비스</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <link rel="stylesheet" href="../static/css/main.css">
-</head>
+
+    
 <body>
     <header>
             <nav class = "nav_bar">
@@ -12,11 +15,11 @@
             <a class="menu" href="">서비스 소개</a>
             <a class="menu" href="/location">거주지 검색</a>
             <a class="menu" href="/hospital">전국병원지도</a>
-            
+            <button class="menu" onclick="showMypage()">마이페이지</button>
             {% if g.user %}
-            <a href="/mypage">
+            <!-- <a href="/mypage">
                 <button class="button"><h1 class="button-text">집바구니</h1></button>
-            </a>
+            </a> -->
             <a href="/logout">
                 <button class="button"><h1 class="button-text">로그아웃</h1></button>
             </a>
@@ -28,6 +31,7 @@
             
             </nav>
         </header>
+
         <main>
             <div class="map_wrap">
             <div id="map" style="width:100%;height:95vh;position:relative;overflow:hidden;"></div>
@@ -266,5 +270,6 @@
             }
             </script>
         </main>
+        <script type="text/javascript" src="../static/js/mypage.js"></script>
     </body>
 </html>

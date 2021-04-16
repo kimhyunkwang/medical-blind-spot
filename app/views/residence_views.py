@@ -7,7 +7,7 @@ import json
 
 bp = Blueprint('residence', __name__, template_folder='templates', static_folder='static')
 
-@bp.route('/residence2')
+@bp.route('/api/residence')
 def residence():
     parser = reqparse.RequestParser()
     parser.add_argument('protectorLat', type=float)
