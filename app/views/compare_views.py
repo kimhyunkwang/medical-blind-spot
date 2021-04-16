@@ -1,7 +1,6 @@
 from flask import Blueprint, jsonify
 from flask_restful import reqparse
 from app.models import Residence, Scrap
-from sqlalchemy.sql import func
 import pandas as pd
 import json
 
@@ -29,10 +28,10 @@ def compare():
             db.session.commit()
             return jsonify(_status = "success")
 
-    pick_id_list = [1, 2, 3]
     pick_resid_list = Residence.query.filter(Residence.id.in_(pick_id_list))
 
     result_df = pd.read_sql(pick_resid_list.statement, pick_resid_list.session.bind)
     result = json.loads(result_df.to_json(orient='records'))
 
     return jsonify(_status = "success", result = result)
+

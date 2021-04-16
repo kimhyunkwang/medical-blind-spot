@@ -19,6 +19,8 @@ def create_app():
     from .views import index_views, residence_views, hospital_views, auth_views, compare_views
     app.register_blueprint(index_views.bp)
     app.register_blueprint(residence_views.bp)
+    app.register_blueprint(compare_views.bp)
+    # app.register_blueprint(mypage_views.bp)
     app.register_blueprint(hospital_views.bp)
     app.register_blueprint(auth_views.bp)
     app.register_blueprint(compare_views.bp)
