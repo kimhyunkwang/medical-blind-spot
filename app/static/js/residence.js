@@ -27,7 +27,7 @@ var hospitalLng = 126.911691;
 
 $.ajax({
 	type: "GET",
-	url:"/api/residence",
+	url:"/residence2",
     data: {
         protectorLat : protectorLat,
         protectorLng : protectorLng,
@@ -127,6 +127,7 @@ var tradeFilter = {sale: false, jeonse: false};
 var salePriceFilter = {minSalePrice: '', maxSalePrice: ''};
 var jeonsePriceFilter = {minJeonsePrice: '', maxJeonsePrice: ''};
 var areaFilter = {minArea:'', maxArea:''};
+
 
 //각 필터링 별 함수
 function handleChangeTypeFilter() {

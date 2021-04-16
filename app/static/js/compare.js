@@ -36,7 +36,7 @@ var hospitalLng = 126.911691;
 
 $.ajax({
 	type: "GET",
-	url:"/api/compare",
+	url:"/compare2",
     data: {
         pick_1 : pick_1,
         pick_2 : pick_2,
@@ -206,7 +206,7 @@ function showHouseInfo(houseData){
 function saveHouses(){
     $.ajax({
         type: "POST",
-        url:"/api/compare",
+        url:"/compare2",
         data: {
             pick_1 : pick_1,
             pick_2 : pick_2,
