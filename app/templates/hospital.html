@@ -24,9 +24,20 @@
         <a class="menu" href="">서비스 소개</a>
         <a class="menu" href="../location">거주지 검색</a>
         <a class="menu" href="../hospital">전국병원지도</a>
-        <a href="../login"><button class="button">
-            <h1 class="button-text">로그인</h1>
-        </button></a>
+
+        {% if g.user %}
+        <a href="../mypage">
+            <button class="button"><h1 class="button-text">집바구니</h1></button>
+        </a>
+        <a href="../logout">
+            {{ g.user.name }}<button class="button"><h1 class="button-text">로그아웃</h1></button>
+        </a>
+        {% else %}
+        <a href="../login">
+            <button class="button"><h1 class="button-text">로그인</h1></button>
+        </a>
+        {% endif %}
+
         </nav>
     </header>
     <div id= "filtering_box">
