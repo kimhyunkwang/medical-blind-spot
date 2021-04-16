@@ -5,10 +5,10 @@ from sqlalchemy.sql import func
 import pandas as pd
 import json
 
-bp = Blueprint('mypage', __name__, template_folder='templates', static_folder='static')
+bp = Blueprint('compare', __name__, template_folder='templates', static_folder='static')
 
-@bp.route('/api/mypage')
-def mypage():
+@bp.route('/api/compare')
+def compare():
     parser = reqparse.RequestParser()
     parser.add_argument('pick_1', type=int)
     parser.add_argument('pick_2', type=int)
