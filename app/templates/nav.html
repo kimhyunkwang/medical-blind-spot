@@ -9,15 +9,18 @@
 <body>
     <header>
         <nav class = "nav_bar">
-        <a href="/"><img src="../static/image/logo.png" alt="logo" width=150px; height=80%;></a>
-        <a class="menu" href="">서비스 소개</a>
-        <a class="menu" href="/location">거주지 찾기</a>
-        <a class="menu" href="/hospital">전국병원지도</a>
-        <a class="menu" href="/mypage">집 바구니</a>
-        <a href="/login"><button class="button">
-            <h4 class="button-text">로그인</h4>
-        </button></a>
-        </nav>
+            <a href="/"><img src="../static/image/logo.png" alt="logo" width=150px; height=80%;></a>
+            <a class="menu" href="">서비스 소개</a>
+            <a class="menu" href="/location">거주지 찾기</a>
+            <a class="menu" href="/hospital">전국병원지도</a>
+            <button class="menu" onclick="showMypage()">마이페이지</button>
+                <a href="/login"><button class="button">
+                    <h1 class="button-text">로그인</h1>
+                </button></a>
+                <a href="/logout"><button class="button">
+                    <h1 class="button-text">로그아웃</h1>
+                </button></a>
+            </nav>
         {% block content %}
     </header>
 {% endblock %}
