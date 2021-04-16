@@ -9,13 +9,7 @@ function showMypage(){
                 location.href = "/login";
             } else {
                 console.log(result);
-                // var formattedData = formatting(result.result);
-                // var houses = formattingForHouseMarker(formattedData);
-                // showHouseInfo(formattedData);       
-                // showMarker(positions, positionImageSrc);
-                // showMarker(houses, housesImageSrc);
                 location.href = "/mypage";
-                result = result;
             }
         },
         error : function(a, b, c){

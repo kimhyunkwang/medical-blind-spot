@@ -7,6 +7,7 @@
 /* container */
 
 .outer_container {
+    padding-top: 50px;
 }
 
 .big_container {
@@ -23,12 +24,13 @@
 
 /* title */
 .big_title {
-    padding-top: 50px;
+    padding: 50px;
     font-size: 80px;
 }
 
 .middle_title {
     font-size: 60px;
+    padding-bottom: 30px;
 }
 
 .small_title {
@@ -36,20 +38,30 @@
 }
 
 /* text */
+.big_text {
+    padding-bottom: 60px;
+}
+
 .middle_text {
     font-size: 30px;
 }
 
 .title_text {
     font-size: 30px;
+    padding-top: 15px;
 }
 
 .sub_text {
-    font-size: 15px;
+    padding-top: 30px;
+    color: gray;
+    font-size: 18px;
 }
 
-img {
-    padding: 100px;
+.outer_container img {
+    padding-top: 50px;
+    padding-bottom: 15px;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 #introduce_user .fas {
@@ -66,4 +78,5 @@ img {
     font-family: 'Nanum Brush Script', cursive;
     font-size: 40px;
     color: darkred;
+    padding-bottom: 20px;
 }
