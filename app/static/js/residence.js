@@ -42,6 +42,8 @@ function getHouses() {
         });
 }
 
+
+
 //filters
 // var typeFilter = {apartment: false, officetel: false};
 // var tradeFilter = {sale: false, jeonse: false};

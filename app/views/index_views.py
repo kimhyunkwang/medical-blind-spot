@@ -15,6 +15,6 @@ def location():
 def residence():
     return render_template("residence.html")
 
-@bp.route("/mypage")
-def myPage():
-    return render_template("myPage.html")
+@bp.route("/compare")
+def compare():
+    return render_template("compare.html")
