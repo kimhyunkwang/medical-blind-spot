@@ -213,7 +213,7 @@ function setProtectorLocation(positionTitle, positionRoadAddress, positionAddres
     protectorLocationData.address = positionAddress;
 
     document.getElementById("showProtectorLocation").innerHTML = `
-                                                                    <p>${protectorLocationData.title}${protectorLocationData.roadAddress}${protectorLocationData.address}</p>
+                                                                    ${protectorLocationData.title}${protectorLocationData.roadAddress}${protectorLocationData.address}
                                                                     `;
 
     protectorLocation = {};
@@ -232,7 +232,7 @@ function setHospitalLocation(positionTitle, positionRoadAddress, positionAddress
     hospitalLocationData.address = positionAddress;
 
     document.getElementById("showHospitalLocation").innerHTML = `
-                                                                    <p>${hospitalLocationData.title}${hospitalLocationData.roadAddress}${hospitalLocationData.address}</p>
+                                                                    ${hospitalLocationData.title}${hospitalLocationData.roadAddress}${hospitalLocationData.address}
                                                                     `;
     hospitalLocation = {};
     hospitalLocation['lat'] = positionLat;
