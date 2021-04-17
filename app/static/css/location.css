@@ -26,7 +26,7 @@
 	white-space: nowrap;
 	color: transparent;
 	padding-top:10px;
-	padding-bottom:15px;
+	padding-bottom:10px;
 }	
 
 #title-text::before {
@@ -72,9 +72,10 @@ div[class="row_page_navigator"] {
 	display:inline-block;
   	color:#ffffff;
 	font-size:20px;
-	padding:10px 30px;
+	padding: 6px 30px;
 	text-decoration:none;
 	font-family: 'MaplestoryOTFBold';
+	border-bottom-width: 4px;
 }
 
 .btn_next{

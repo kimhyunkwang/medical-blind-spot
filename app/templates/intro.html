@@ -11,6 +11,15 @@
         <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@800&display=swap" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css2?family=Yeon+Sung&display=swap" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css2?family=Nanum+Brush+Script&family=Yeon+Sung&display=swap" rel="stylesheet">
+        <script type="text/javascript">
+            function div_show() {
+                document.getElementById("tog_div").style.display = "block";
+            }
+            function div_hide() {
+            document.getElementById("tog_div").style.display = "none";
+        }
+
+        </script>
 
     </head>
 </head>
@@ -19,7 +28,7 @@
         <div id="introduce" class="big_container">
             <h1 class="big_title">[  서비스 소개  ]</h1>
             <div id="introduce_text" class="middle_container">
-                <p class="big_text" style="font-family: 'Yeon Sung', cursive; font-size: 50px;">
+                <p class="big_text" style="font-family: 'Yeon Sung', cursive; font-size: 40px;">
                     '걱정마소'는 안심 바운더리 내 거주지 검색 서비스입니다.
                     <br><br>보호자와 병원의 위치를 기반으로 하여
                     <br>노인과 보호자 모두가 안심할 수 있는 안심 바운더리를 찾아주고,
@@ -30,14 +39,14 @@
                 <p class="middle_text">
                     <p class="introduce_text">
                         " 지방에 계신 어머니를 서울로 모셔오고 싶은데,
-                        <br>제가 사는 곳과 가깝고 병원이랑도 가까워서 안심할 수 있는 집을 찾고 싶어요. "
+                        <br>제가 사는 곳과 가깝고 병원이랑도 가까워서 안심할 수 있는 집을 찾고 싶어요 "
                     </p>
                 </p>
                 <p class="middle_text">
                     <div> 
                         <p class="introduce_text"> 
                             " 아들이랑 가까이 살고 싶고 이왕이면 병원이랑도 가까웠으면 좋겠는데,
-                            <br>제가 원하는 가격대와 평수에 맞춰서 집을 검색하고 싶어요. "
+                            <br>제가 원하는 가격대와 평수에 맞춰서 집을 검색하고 싶어요 "
                         </p>    
                     </div>
                 </p>
@@ -45,7 +54,7 @@
                     <div>
                         <p class="introduce_text">
                             " 암 치료 때문에 정기적으로 대학 병원을 방문해야 하는데,
-                            <br>병원과 자녀의 집 사이에 적당한 곳으로 이사를 가야할 것 같아요. "
+                            <br>병원과 자녀의 집 사이에 적당한 곳으로 이사를 가야할 것 같아요 "
                         </p>
                     </div>
                 </p>
@@ -66,7 +75,20 @@
                     </p>
                     <img src="../static/image/data_img/2.png" alt="My Image">
                     <p class="middle_text">50대를 기점으로 의료 급여 적용 인구가 눈에 띄게 증가함을 확인할 수 있습니다.</p>
-                    <img src="../static/image/data_img/0.png" alt="My Image" style="padding-top: 15px;">
+
+                    <div style="font-size: 20px; padding: 10px;">
+                        &#x2753;<input type="button" id="tog_btn" value="의료급여제도란? (클릭하여 자세히 알아보기)" onclick="div_show();" style=" border:0; background-color: rgb(255, 255, 255); font-size: 20px;"/>
+                        <div id="tog_div" style="display: none;">
+                            <p>
+                                생활유지 능력이 없거나 생활이 어려운 저소득 국민의 의료문제(질병, 부상, 출산 등)를
+                                <br>국가가 보장하는 공공부조 제도로 건강보험과 함께 국민 의료보장의 중요한 수단이 되는
+                                <br>사회보장제도입니다.
+                            </p>
+                            <div><input type="button" id="tog_button" value="닫기" onclick="div_hide();"/></div>
+                        </div>
+                    </div>
+                    
+
                     <p class="middle_text">
                         의료 급여 지원을 받는다는 것은 본인의 의료 문제에 대해 외부의 지원이 필요하다는 의미로 볼 수 있습니다.
                         <br>데이터 분석 결과, 이러한 의료 급여 적용 인구가 50대 이후부터 눈에 띄게 증가함을 확인할 수 있었고,
@@ -76,10 +98,12 @@
                 <div class="small_container">
                     <h3 class="small_title" style="padding-top: 30px;">2. 저소득층 노인들의 경우, 의료 급여의 주 대상자로서 <br>외부로부터의 도움이 더욱 필요한 상황입니다. </h3>
                     <img src="../static/image/data_img/3.png" alt="My Image">
-                    <img src="../static/image/data_img/4.png" alt="My Image">
                     <p class="middle_text">
                         50대 이상 인구 비율이 가장 낮은 세종시의 경우, 의료 급여 적용 인구 비율 또한 다른 지역에 비해 낮음을 확인할 수 있습니다.
-                        <br>평균 소득이 높은 서울, 울산, 경기 지역과, 평균 연령이 가장 낮은 세종시의 의료 급여 수급 인구가 낮다는 사실을 통해,
+                    </p>
+                    <img src="../static/image/data_img/4.png" alt="My Image">
+                    <p class="middle_text">
+                        평균 소득이 높은 서울, 울산, 경기 지역과, 평균 연령이 가장 낮은 세종시의 의료 급여 수급 인구가 낮다는 사실을 통해,
                         <br>저소득층 노인 인구들이 의료 급여의 주 대상자이며 그만큼 어려움을 많이 겪고 있을 것이라 보았습니다.
                     </p>
                 </div>
@@ -97,8 +121,10 @@
                         <br>노인의 건강 관리에 있어서 매우 중요한 요소라고 판단하였고,
                         <br>자녀 혹은 보호자와 같이 살지는 못하더라도 가까이에 거주할 필요성이 있다고 보았습니다.
                     </p>
-                    <img src="../static/image/data_img/5.png" alt="My Image" style="width:500px;">
-                    <img src="../static/image/data_img/6.png" alt="My Image" style="width:340px;">
+                    <div style="padding-right: 85px;">
+                        <img src="../static/image/data_img/5.png" alt="My Image" style="width:500px;">
+                        <img src="../static/image/data_img/6.png" alt="My Image" style="width:340px;">
+                    </div>
                     <p class="middle_text">
                         장기 요양 실태 조사 결과에 따르면, 가족과 정부,사회가 부모 부양을 해야 한다는 의견이 가장 많았으며,
                         <br>실제로 장기 요양 급여에 관련된 의사결정의 대부분을 자녀가 결정하고 있음을 확인할 수 있습니다.
@@ -129,11 +155,11 @@
                         <hospital_map id="hospital_map"></hospital_map>
                         <survive_map id="survive_map"></survive_map>
                     </div>
-                    <div style="display: flex; font-size: 30px; color:gray;">
+                    <div style="display: flex; font-size: 20px; color:gray;">
                         <p style="width: 600px;">지역별 병원위치 밀집지도</p>
                         <p style="width: 600px;">지역별 치료가능사망자 수 지도</p>
                     </div>
-                    <p class="middle_text" style="padding-top: 30px;">
+                    <p class="middle_text" style="padding-top: 20px;">
                         두 지도를 비교해보면, 병원이 밀집해 있는 지역은 치료 가능 사망자 수가 적은 반면,
                         <br> 병원의 위치가 분산되어 있는 지역은 치료 가능 사망자 수가 높다는 사실을 확인할 수 있습니다.
                     </p>
@@ -152,6 +178,7 @@
                 </div>
             </div>
             <div class="small_container">
+                <img src="../static/image/data_img/12.png" alt="My Image">
                 <h3 class="small_title" style="padding-top: 50px;">회귀분석 결과</h3>
                 <img src="../static/image/data_img/r1.png" alt="My Image" style="width: 500px;">
                 <p class="middle_text" style="padding: 10px;">* 단순회귀분석 결과 *</p>
