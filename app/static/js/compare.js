@@ -196,7 +196,7 @@ function showHouseInfo(houseData){
                 <p>유형: ${data.type}</p>
                 <p>매매가(천만원): ${data.minSalePrice}~${data.maxSalePrice}</p>
                 <p>전세가(천만원): ${data.minJeonsePrice}~${data.maxJeonsePrice}</p>
-                <p>전용 면적(평): ${data.minArea}~${data.maxArea}</p>
+                <p>전용 면적(m<sup>2</sup>): ${data.minArea}~${data.maxArea}</p>
             </div><br>
         `;
 

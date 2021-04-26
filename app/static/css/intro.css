@@ -25,16 +25,16 @@
 /* title */
 .big_title {
     padding: 50px;
-    font-size: 80px;
+    font-size: 60px;
 }
 
 .middle_title {
-    font-size: 60px;
+    font-size: 40px;
     padding-bottom: 30px;
 }
 
 .small_title {
-    font-size: 40px;
+    font-size: 30px;
 }
 
 /* text */
@@ -43,11 +43,11 @@
 }
 
 .middle_text {
-    font-size: 30px;
+    font-size: 25px;
 }
 
 .title_text {
-    font-size: 30px;
+    font-size: 20px;
     padding-top: 15px;
 }
 
@@ -62,10 +62,11 @@
     padding-bottom: 15px;
     padding-left: 10px;
     padding-right: 10px;
+    width: 900px;
 }
 
 #introduce_user .fas {
-    font-size: 100px;
+    font-size: 80px;
 }
 
 /* introduce */
@@ -76,7 +77,7 @@
 
 .introduce_text{
     font-family: 'Nanum Brush Script', cursive;
-    font-size: 40px;
+    font-size: 30px;
     color: darkred;
     padding-bottom: 20px;
 }

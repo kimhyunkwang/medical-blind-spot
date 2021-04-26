@@ -1,3 +1,4 @@
+// get 요청 => 해당 회원에 해당하는 정보들 가져오기
 $.ajax({
     type: "GET",
     url:"/api/mypage",
@@ -21,14 +22,11 @@ $.ajax({
                     latlng: new kakao.maps.LatLng(userResult.hospitalLat, userResult.hospitalLng)
                 }
             ];
-            console.log(positions);
             var formattedData = formatting(residResult);
             var houses = formattingForMarker(formattedData);
-            console.log(formattedData);
-            console.log(houses);
-            // showHouseInfo(formattedData);       
-            showLocationMarker(positions, positionImageSrc);
-            showMarker(houses, housesImageSrc);
+
+            showLocationMarker(positions, positionImageSrc); // 기본 위치 마커 표시
+            showMarker(houses, housesImageSrc); //저장 매물 위치 마커 표시
         }
     },
     error : function(a, b, c){
@@ -89,21 +87,21 @@ function formatting(result){
             maxArea : result[i].maxArea
         };
 
-        // console.log(formattedResult);
         data.push(formattedResult);
     }
     return data;
 }
 
-// 지도 관련
-var mapContainer = document.getElementById('map'), // 지도를 표시할 div  
+// 지도 생성
+var mapContainer = document.getElementById('map'), 
 mapOption = { 
-    center: new kakao.maps.LatLng(37.526222, 127.024481), // 지도의 중심좌표
+    center: new kakao.maps.LatLng(37.526222, 127.024481),
     level: 3 // 지도의 확대 레벨
 };
 
-var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+var map = new kakao.maps.Map(mapContainer, mapOption);
 
+// formattingForMarker => 마커 표시를 위한 데이터 변환 함수
 function formattingForMarker(data){
     var dataForMarker =[];
     for (var i=0; i < data.length; i++){
@@ -116,31 +114,27 @@ function formattingForMarker(data){
     }
     return dataForMarker;
 }
-// 마커 이미지의 이미지 주소입니다
-var positionImageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png"; 
+
+// 마커 표시
+var positionImageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";  // 마커 이미지의 이미지 주소입니다
 var housesImageSrc = 'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_red.png'; 
 bounds = new kakao.maps.LatLngBounds();
 
-
-// 지도에 표시된 마커 객체를 가지고 있을 배열입니다
 var markers = [];
 
 function setMarkers(map) {
-    console.log("setMarkers");
     for (var i = 0; i < markers.length; i++) {
         markers[i].setMap(map);
     }            
 }
 
 function removeMarkers(){
-    console.log("remove");
     setMarkers(null);
 }
 
-
+// showLocationMarker => 보호자 위치, 병원 위치 마커 표시 함수
 function showLocationMarker(dataForMarker, markerImageSrc){
 
-    console.log("showmarker");
     var dataImageSize = new kakao.maps.Size(24, 35); 
     var datamarkerImage = new kakao.maps.MarkerImage(markerImageSrc, dataImageSize); 
 
@@ -159,9 +153,9 @@ function showLocationMarker(dataForMarker, markerImageSrc){
     }
 }
 
+// showMarker => 저장한 매물 마커 표시 함수
 function showMarker(dataForMarker, markerImageSrc){
     removeMarkers();
-    console.log("showmarker");
     var dataImageSize = new kakao.maps.Size(24, 35); 
     var datamarkerImage = new kakao.maps.MarkerImage(markerImageSrc, dataImageSize); 
 
@@ -198,7 +192,7 @@ function showMarker(dataForMarker, markerImageSrc){
     }
 }
 
-
+// 오버레이 창 생성 및 띄우기
 var customOverlay = null;
 
 function displayOverlay(place, positionLat, positionLng) {
@@ -222,7 +216,7 @@ function displayOverlay(place, positionLat, positionLng) {
             '            <div class="desc">' + 
             `               <div class="ellipsis">매매가(천만원):${minSalePrice}~${maxSalePrice}</div>`+
             `               <div class="ellipsis">전세가(천만원):${minJeonsePrice}~${maxJeonsePrice}</div>`+
-            `               <div class="ellipsis">평수(평):${minJeonsePrice}~${maxJeonsePrice}</div>`+
+            `               <div class="ellipsis">전용면적(m<sup>2</sup>):${minJeonsePrice}~${maxJeonsePrice}</div>`+
             '            </div>' + 
             '        </div>' + 
             '    </div>' +    
@@ -242,23 +236,3 @@ function closeOverlay(){
     console.log("closeOverlay!!");
     customOverlay.setMap(null);     
 }
-
-
-// function showHouseInfo(houseData){
-    
-//     houseData.map((data,index)=>{
-//         //정보 제공
-//         var houseInfo = document.createElement(`house_${index}`);
-//         houseInfo.id = "houseInfo_" + index;
-//         houseInfo.innerHTML = `
-//             <h2>${data.name}</h2>
-//             <p>주소: ${data.address}</p>
-//             <p>유형: ${data.type}</p>
-//             <p>매매가(천만원): ${data.minSalePrice}~${data.maxSalePrice}</p>
-//             <p>전세가(천만원): ${data.minJeonsePrice}~${data.maxJeonsePrice}</p>
-//             <p>전용 면적(평): ${data.minArea}~${data.maxArea}</p>
-//         `;
-
-//         document.getElementById("comparison").appendChild(houseInfo);
-//     })
-// }
