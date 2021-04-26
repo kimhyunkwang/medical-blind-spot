@@ -6,21 +6,30 @@ data-project                # root
 |   ├─ static                       # css, js, image
 |   ├─ templates                    # html files
 |   ├─ views
-|   |   ├─ index_views.py               # 인덱스 view
-|   |   ├─ hospital_views.py            # 병원 추천 view
-|   |   └─ residence_views.py           # 거주지 추천 view
+|   |   ├─ auth_views.py             # 회원가입, 로그인 view
+|   |   ├─ compare_views.py          # 후보 매물 비교 view
+|   |   ├─ hospital_views.py         # 병원 지도 view
+|   |   ├─ index_views.py            # 인덱스 view
+|   |   ├─ mypage_views.py           # 마이페이지 view
+|   |   └─ residence_views.py        # 매물 검색 view
 |   ├─ __init__.py
+|   ├─ forms.py
 |   └─ models.py                    # Data Model 정의
-├─ data
-|   └─ hospi4.csv                   # 초기 데이터
-├─ venv                         # python 가상 환경
+├─ data                             # 데이터
+├─ dataonly                         
+|   └─ Dockerfile                   # 데이터 전용 컨테이너 도커파일
+├─ nginx                            
+|   └─ Dockerfile                   # nginx 컨테이너 도커파일
 ├─ .gitignore
-├─ config.py
+├─ docker-compose.yml               # docker-compose 파일
+├─ Dockerfile                       # flask 컨테이너 도커파일
 ├─ load_data.py                 # 초기 데이터 로드 파일
 ├─ README.md
 ├─ requirements.txt
-└─ run.py                       # app 실행 파일
+├─ run.py                       # app 실행 파일
+└─ wsgi.py                      
 ```
+
 
 ## 1. 프로젝트 소개
 
