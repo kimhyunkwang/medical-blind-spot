@@ -31,6 +31,51 @@ data-project                # root
 ```
 
 
+## 프로젝트 설치 및 실행 방법
+### 설치
+```bash
+# clone the project repository
+git clone https://kdt-gitlab.elice.io/001-part3-project-MedicalBlindSpot/team5/data-project.git
+```
+
+### 가상 환경 구축
+```bash
+# 가상 환경 폴더 생성
+python -m venv python-env
+# 가상 환경 접속
+source python-env/bin/activate
+# 패키지 설치
+pip install -r requirements.txt
+```
+
+### 데이터베이스 설정
+```bash
+# library/config.py 생성하고 아래 내용 작성
+# 실제 정보를 <>, []에 기입해주세요.
+
+SQLALCHEMY_DATABASE_URI = "mysql+pymysql://<username>:<password>@<hostname>:3306/<database_name>?charset=utf8mb4"
+SQLALCHEMY_TRACK_MODIFICATIONS = False
+
+SECRET_KEY = [secret_key]
+```
+
+### 마이그레이션 및 데이터 초기화
+```bash
+# migrations directory 생성
+flask db init
+flask db migrate
+flask db upgrade
+
+# 초기 데이터 로드
+python load_data.py
+```
+
+### 실행
+```bash
+python run.py
+```
+
+
 ## 1. 프로젝트 소개
 
 **어떠한 데이터셋와 도구 및 기술을 사용했는지에 대한 설명과 엔드유저에게 보이는 웹서비스에 대한 소개**
